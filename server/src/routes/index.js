@@ -15,6 +15,7 @@ const {
   login,
   deleteUser,
   getAllUsers,
+  checkAuth,
 } = require("../controllers/auth");
 const {
   getTrips,
@@ -41,6 +42,7 @@ router.post("/register", register);
 router.post("/login", login);
 router.get("/users", auth, adminOnly, getAllUsers);
 router.delete("/users/:id", auth, adminOnly, deleteUser);
+router.get("/check-auth", auth, checkAuth);
 
 router.post("/country", auth, adminOnly, addCountrys);
 router.get("/country", getAllCountry);
