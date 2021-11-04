@@ -1,0 +1,46 @@
+.card-product {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between !important;
+  margin: 30px 15px 50px 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.075);
+  width: 325px;
+  padding: 5px;
+  background: white;
+  border-radius: 5px;
+}
+
+.img-product {
+  width: 280px;
+  border-radius: 5px;
+}
+
+.card-title {
+  margin-top: 15px;
+  font-size: 24px;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 265px;
+}
+
+.price {
+  float: left;
+  font-size: 18px;
+  margin-top: 15px;
+  font-weight: 500;
+  color: #ffaf00;
+}
+
+.country {
+  float: right;
+  font-size: 18px;
+  margin-top: 15px;
+  font-weight: 500;
+  color: #313131ca;
+}
+
+.mb-10 {
+  margin-bottom: 155px;
+}

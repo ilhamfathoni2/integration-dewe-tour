@@ -1,0 +1,59 @@
+.btn-dangers {
+  margin-right: 15px;
+  background-color: #ff0742;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 25px 10px 25px;
+}
+
+.btn-successt {
+  margin-left: 15px;
+  margin-right: 40px;
+  background-color: #0acf83;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 25px 10px 25px;
+}
+
+.inv {
+  width: 100px;
+  height: 100px;
+  border: #ffaf00 4px solid;
+  border-radius: 5px;
+}
+
+.badge-danger {
+  background-color: #ff67672f;
+  border-radius: 5px;
+}
+
+.badge-warning {
+  background-color: #fff5672f;
+  border-radius: 5px;
+}
+
+.wd {
+  padding: 10px 80px 10px 80px;
+}
+
+.hidden {
+  display: none;
+}
+.pointerss {
+  cursor: pointer;
+}
+
+h6,
+p {
+  font-size: 15px;
+}
+
+h4 {
+  font-size: 17px;
+}

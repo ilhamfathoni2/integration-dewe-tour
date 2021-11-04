@@ -1,0 +1,36 @@
+{
+  "name": "dwf26if-dewe-tour-api",
+  "version": "1.0.0",
+  "description": "Dewe Tour App",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "client": "npm start --prefix ../client",
+    "dev": "concurrently \"npm start\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilhamfathoni2/dwf26if-dewe-tour-api.git"
+  },
+  "author": "Ilham Fathoni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilhamfathoni2/dwf26if-dewe-tour-api/issues"
+  },
+  "homepage": "https://github.com/ilhamfathoni2/dwf26if-dewe-tour-api#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "concurrently": "^6.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.2",
+    "nodemon": "^2.0.14",
+    "sequelize": "^6.8.0",
+    "sequelize-cli": "^6.3.0"
+  }
+}

@@ -1,0 +1,55 @@
+.image-head {
+  width: 100%;
+}
+
+.mb-10 {
+  margin-bottom: 70px;
+}
+
+.mb-20 {
+  margin-bottom: 155px;
+}
+
+.info-trip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-2 {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.icon-info {
+  position: absolute;
+  margin: 5px 25px 0 0;
+}
+
+.title-info {
+  margin: 5px 0 0 45px;
+}
+
+.qty {
+  width: 50px;
+  border: hidden !important;
+  font-size: 15px;
+  font-weight: 700;
+  color: black !important;
+  background: none !important;
+}
+
+.price-1 {
+  float: left;
+}
+
+.price-2 {
+  float: right;
+}
