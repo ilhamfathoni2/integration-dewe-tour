@@ -54,6 +54,10 @@ footer {
   border: none;
 }
 
+.dropdown-after-login {
+  padding-right: 0 !important;
+}
+
 .btn-primary {
   color: transparent !important;
   background: none !important;
@@ -70,4 +74,18 @@ footer {
   box-shadow: none !important;
   border: none !important;
   background: none !important;
+}
+
+.icon-after-login {
+  width: 28px;
+}
+
+.b-user-log {
+  margin-left: 20px;
+  color: #242424;
+}
+
+.btn-hide {
+  background: none;
+  border: none;
 }

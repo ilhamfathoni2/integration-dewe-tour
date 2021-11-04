@@ -44,3 +44,8 @@
 .mb-10 {
   margin-bottom: 155px;
 }
+
+.link {
+  text-decoration: none;
+  color: #272727;
+}
