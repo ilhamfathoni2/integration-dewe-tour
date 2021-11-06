@@ -1,5 +1,6 @@
 const { trip, country, image } = require("../../models");
 const Joi = require("joi");
+const pathFile = "http://localhost:5000/uploads/";
 
 exports.getTrips = async (req, res) => {
   try {
@@ -17,9 +18,28 @@ exports.getTrips = async (req, res) => {
       },
     });
 
+    const newData = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      country: item.country,
+      accomodation: item.accomodation,
+      transportation: item.transportation,
+      eat: item.eat,
+      day: item.day,
+      night: item.night,
+      dateTrip: item.dateTrip,
+      price: item.price,
+      quota: item.quota,
+      description: item.description,
+      image: JSON.parse(item.image).map((image, index) => ({
+        id: index + 1,
+        url: pathFile + image,
+      })),
+    }));
+
     res.send({
       status: "success...",
-      data,
+      data: newData,
     });
   } catch (error) {
     console.log(error);
@@ -33,7 +53,7 @@ exports.getTrips = async (req, res) => {
 exports.getTripId = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await trip.findOne({
+    const data = await trip.findAll({
       where: {
         id,
       },
@@ -50,9 +70,28 @@ exports.getTripId = async (req, res) => {
       },
     });
 
+    const newData = data.map((item) => ({
+      id: item.id,
+      title: item.title,
+      country: item.country,
+      accomodation: item.accomodation,
+      transportation: item.transportation,
+      eat: item.eat,
+      day: item.day,
+      night: item.night,
+      dateTrip: item.dateTrip,
+      price: item.price,
+      quota: item.quota,
+      description: item.description,
+      image: JSON.parse(item.image).map((image, index) => ({
+        id: index + 1,
+        url: pathFile + image,
+      })),
+    }));
+
     res.send({
       status: "success...",
-      data,
+      data: newData,
     });
   } catch (error) {
     console.log(error);
@@ -89,26 +128,11 @@ exports.addTrip = async (req, res) => {
 
   try {
     const { idUser } = req.user;
-    const { image } = req.files;
-
-    const allImage = [];
-    for (let item of image) {
-      allImage.push(item.filename);
-    }
+    const arrayFilename = req.files.image.map((item) => item.filename);
 
     const newTrip = await trip.create({
-      title: req.body.title,
-      countryId: req.body.countryId,
-      accomodation: req.body.accomodation,
-      transportation: req.body.transportation,
-      eat: req.body.eat,
-      day: req.body.day,
-      night: req.body.night,
-      dateTrip: req.body.dateTrip,
-      price: req.body.price,
-      quota: req.body.quota,
-      description: req.body.description,
-      image: JSON.stringify(allImage),
+      ...req.body,
+      image: JSON.stringify(arrayFilename),
       idUser,
     });
 
@@ -132,13 +156,18 @@ exports.addTrip = async (req, res) => {
 
       data = JSON.parse(JSON.stringify(data));
 
+      const newData = {
+        ...data,
+        image: JSON.parse(data.image).map((image, index) => ({
+          id: index + 1,
+          url: pathFile + image,
+        })),
+      };
+
       res.send({
         status: "success",
         message: "Add trip success",
-        data: {
-          data,
-          image: "http://localhost:5000/uploads/" + data.image,
-        },
+        data: newData,
       });
     }
   } catch (error) {

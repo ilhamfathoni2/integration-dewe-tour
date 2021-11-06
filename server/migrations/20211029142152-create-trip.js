@@ -36,7 +36,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       dateTrip: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       price: {
         type: Sequelize.INTEGER,
