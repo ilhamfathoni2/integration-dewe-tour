@@ -40,6 +40,7 @@ exports.register = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const userRole = "user";
 
     const newUser = await user.create({
       fullname: req.body.fullname,
@@ -47,7 +48,7 @@ exports.register = async (req, res) => {
       password: hashedPassword,
       phone: req.body.phone,
       address: req.body.address,
-      role: req.body.role,
+      role: userRole,
     });
 
     // generate token

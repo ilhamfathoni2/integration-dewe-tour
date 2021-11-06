@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { UserContext } from "./context/authContext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,6 +15,26 @@ import IncomTrip from "./pages/incomTrip";
 import Trip from "./pages/trip";
 
 import { API } from "./config/api";
+
+function PrivateRoute({ children, ...rest }) {
+  const [state] = useContext(UserContext);
+  let history = useHistory();
+
+  return (
+    <Route
+      {...rest}
+      render={() => {
+        if (state.user.role === "admin") {
+          return children;
+        } else if (state.user.role === "user") {
+          return history.push("/");
+        } else if (!state.isLogin) {
+          return history.push("/");
+        }
+      }}
+    />
+  );
+}
 
 function App() {
   let api = API();
@@ -64,9 +84,11 @@ function App() {
         <Route exact path="/payment" component={Pay} />
         <Route exact path="/status-payment" component={AfterPay} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/incom" component={IncomTransaction} />
-        <Route exact path="/incom-trip" component={IncomTrip} />
-        <Route exact path="/add-trip" component={Trip} />
+        <PrivateRoute>
+          <Route exact path="/incom" component={IncomTransaction} />
+          <Route exact path="/incom-trip" component={IncomTrip} />
+          <Route exact path="/add-trip" component={Trip} />
+        </PrivateRoute>
       </Switch>
     </>
   );

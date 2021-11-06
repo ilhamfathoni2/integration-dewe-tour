@@ -1,13 +1,13 @@
 import { useQuery } from "react-query";
 
 import { API } from "../config/api";
+import convertRupiah from "rupiah-format";
 
 import { Container, Card, Image } from "react-bootstrap";
 import "./product.css";
-import img1 from "../src-assets/img1.jpg";
 import { Link } from "react-router-dom";
 
-function Product({ item }) {
+function Product() {
   let api = API();
 
   const title = "Home";
@@ -29,10 +29,10 @@ function Product({ item }) {
           <Link to={`/detail/` + item.id} className="link">
             <Card className="card-product">
               <Card.Body>
-                <Image className="img-product mb-3" src={img1} />
+                <Image className="img-product mb-3" src={item.image[1].url} />
                 <h4 className="card-title">{item.title}</h4>
                 <h5 className="price">
-                  <b>IDR. {item.price}</b>
+                  <b>{convertRupiah.convert(item.price)}</b>
                 </h5>
                 <h5 className="country">{item.country.name}</h5>
               </Card.Body>
