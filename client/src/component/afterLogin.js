@@ -75,7 +75,7 @@ function AfterLogin() {
               </Link>
             </Dropdown.Item>
             <Dropdown.Item>
-              <Link to="/status-payment">
+              <Link to="/payment">
                 <Image className="icon-after-login" src={pay} />
                 <b className="b-user-log">Pay</b>
               </Link>

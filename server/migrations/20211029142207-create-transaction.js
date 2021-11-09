@@ -38,6 +38,9 @@ module.exports = {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       },
+      country: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

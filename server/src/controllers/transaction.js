@@ -3,9 +3,13 @@ const Joi = require("joi");
 
 exports.getTransactions = async (req, res) => {
   try {
-    const { idUser } = req.user;
+    const { id } = req.user;
 
     const data = await transaction.findAll({
+      where: {
+        status: "Waiting Payment",
+        userId: id,
+      },
       include: [
         {
           model: trip,
@@ -23,12 +27,55 @@ exports.getTransactions = async (req, res) => {
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
-      idUser,
+      id,
     });
 
     res.send({
       status: "success...",
       data,
+      attachments: "http://localhost:5000/uploads/" + data.attachment,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.getTrscHistory = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    const data = await transaction.findAll({
+      where: {
+        userId: id,
+      },
+      include: [
+        {
+          model: trip,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+      id,
+    });
+
+    res.send({
+      status: "success...",
+      data,
+      attachments: "http://localhost:5000/uploads/" + data.attachment,
     });
   } catch (error) {
     console.log(error);
@@ -81,24 +128,6 @@ exports.getTransactionId = async (req, res) => {
 };
 
 exports.addTransaction = async (req, res) => {
-  const schema = Joi.object({
-    counterQty: Joi.number().required(),
-    total: Joi.number().required(),
-    accomodation: Joi.string().required(),
-    status: Joi.string().required(),
-    tripId: Joi.number().required(),
-    userId: Joi.number().required(),
-  });
-
-  const { error } = schema.validate(req.body);
-
-  if (error)
-    return res.status(400).send({
-      error: {
-        message: error.details[0].message,
-      },
-    });
-
   try {
     const { idUser } = req.user;
 
@@ -109,7 +138,9 @@ exports.addTransaction = async (req, res) => {
       status: req.body.status,
       tripId: req.body.tripId,
       userId: req.body.userId,
-      attachment: req.files.attachment[0].filename,
+      country: req.body.country,
+      // attachment: req.files.attachment[0].filename,
+      attachment: req.body.attachment,
       idUser,
     });
 
@@ -158,14 +189,16 @@ exports.addTransaction = async (req, res) => {
 };
 
 exports.updateTransaction = async (req, res) => {
-  const { idUser } = req.user;
+  const iduser = req.user.id;
   const { id } = req.params;
   try {
     await transaction.update(req.body, {
       where: {
         id,
       },
-      idUser,
+      status: req.body.status,
+      attachment: req.files.attachment[0].filename,
+      iduser,
     });
     const data = await transaction.findOne({
       include: [

@@ -1,11 +1,11 @@
 import { Container, Image } from "react-bootstrap";
-import "./pay.css";
+import "./profile.css";
 import Icon from "../src-assets/IconPay.png";
 import Invoice from "../src-assets/struck.png";
 
 import convertRupiah from "rupiah-format";
 
-function PayWaiting({ item }) {
+function History({ item }) {
   let statusPay = "";
   if (item.status === "Waiting Payment") {
     statusPay = "badge-warning p-2 text-warning";
@@ -58,12 +58,7 @@ function PayWaiting({ item }) {
                 <p>{item.trip.transportation}</p>
               </div>
               <div className="card-body d-flex align-items-end flex-column p-0 m-0">
-                <label htmlFor="files" className="pointerss">
-                  <Image className="inv" src={Invoice} />
-                  <br />
-                  <p className="text-center">Upload</p>
-                </label>
-                <input type="file" id="files" className="hidden" />
+                <Image className="inv" src={item.attachments} />
               </div>
             </div>
             <table className="table table-striped">
@@ -101,4 +96,4 @@ function PayWaiting({ item }) {
   );
 }
 
-export default PayWaiting;
+export default History;

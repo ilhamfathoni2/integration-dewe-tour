@@ -135,6 +135,7 @@ exports.addTrip = async (req, res) => {
       image: JSON.stringify(arrayFilename),
       idUser,
     });
+    console.log(newTrip);
 
     if (newTrip) {
       let data = await trip.findOne({

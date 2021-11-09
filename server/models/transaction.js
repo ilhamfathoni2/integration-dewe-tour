@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       attachment: DataTypes.STRING,
       tripId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
+      country: DataTypes.STRING,
     },
     {
       sequelize,

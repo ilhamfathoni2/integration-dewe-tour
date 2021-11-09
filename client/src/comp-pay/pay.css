@@ -1,8 +1,21 @@
 .inv {
-  width: 138px;
-  height: 138px;
-  border: #ffaf00 4px solid;
+  width: 150px;
+  border: none !important;
   border-radius: 5px;
+}
+
+.here {
+  color: rgb(2, 2, 170) !important;
+  background: none;
+  border: none;
+}
+
+.mr5 {
+  margin-right: 60px;
+}
+
+.mr4 {
+  margin-right: 56px;
 }
 
 .badge-danger {
@@ -12,6 +25,11 @@
 
 .badge-warning {
   background-color: #fff5672f;
+  border-radius: 5px;
+}
+
+.badge-success {
+  background-color: #2ae4593b;
   border-radius: 5px;
 }
 

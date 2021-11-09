@@ -1,10 +1,28 @@
 import NavMain from "../component/navbar";
 import Footer from "../component/footer";
 import Personal from "../comp-profile/personal";
-import PayWaiting from "../comp-pay/cPayWaiting";
+import History from "../comp-profile/history";
 import { Container } from "react-bootstrap";
 
+import { useQuery } from "react-query";
+import { API } from "../config/api";
+
 function Profile() {
+  let api = API();
+
+  const { data: history } = useQuery("transChace", async () => {
+    const config = {
+      method: "GET",
+      headers: {
+        Authorization: "Basic " + localStorage.token,
+      },
+    };
+
+    const response = await api.get("/history", config);
+
+    return response.data;
+  });
+
   return (
     <>
       <NavMain />
@@ -14,7 +32,9 @@ function Profile() {
           <b>History Trip</b>
         </h3>
       </Container>
-      <PayWaiting />
+      {history?.map((item, index) => (
+        <History item={item} key={index} />
+      ))}
       <Footer />
     </>
   );

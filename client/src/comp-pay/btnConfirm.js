@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 
 function Confirm() {
@@ -9,7 +8,7 @@ function Confirm() {
 
   return (
     <>
-      <Button className="wd btn btn-warning" onClick={handleShow}>
+      <Button className="wd" variant="warning" onClick={handleShow}>
         <b>Pay</b>
       </Button>
 
@@ -25,9 +24,9 @@ function Confirm() {
           </h5>
           <h5 className="text-center">
             To see orders clik{" "}
-            <Link to="/status-payment">
+            <Button>
               <b>Here</b>
-            </Link>{" "}
+            </Button>
             thank you
           </h5>
         </Modal.Body>

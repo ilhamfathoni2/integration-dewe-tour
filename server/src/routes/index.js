@@ -35,6 +35,7 @@ const {
   addTransaction,
   updateTransaction,
   deleteTransaction,
+  getTrscHistory,
 } = require("../controllers/transaction");
 
 // Route
@@ -56,10 +57,17 @@ router.post("/trip", auth, adminOnly, uploadFile("image"), addTrip);
 router.patch("/trip/:id", auth, adminOnly, updateTrip);
 router.delete("/trip/:id", auth, adminOnly, deleteTrip);
 
+router.get("/history", auth, getTrscHistory);
+
 router.get("/transaction", auth, getTransactions);
 router.get("/transaction/:id", auth, getTransactionId);
-router.post("/transaction", auth, attachmentFile("attachment"), addTransaction);
-router.patch("/transaction/:id", auth, updateTransaction);
+router.post("/transaction", auth, addTransaction);
+router.patch(
+  "/transaction/:id",
+  auth,
+  attachmentFile("attachment"),
+  updateTransaction
+);
 router.delete("/transaction/:id", auth, deleteTransaction);
 
 module.exports = router;

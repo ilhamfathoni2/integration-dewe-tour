@@ -7,3 +7,53 @@
 .mb-10 {
   margin-top: 155px;
 }
+
+.inv {
+  width: 150px;
+  border: none !important;
+  border-radius: 5px;
+}
+
+.here {
+  color: rgb(2, 2, 170) !important;
+  background: none;
+  border: none;
+}
+
+.mr5 {
+  margin-right: 60px;
+}
+
+.mr4 {
+  margin-right: 56px;
+}
+
+.badge-danger {
+  background-color: #ff67672f;
+  border-radius: 5px;
+}
+
+.badge-warning {
+  background-color: #fff5672f;
+  border-radius: 5px;
+}
+
+.badge-success {
+  background-color: #2ae4593b;
+  border-radius: 5px;
+}
+
+.mb-10 {
+  margin-top: 155px;
+}
+
+.wd {
+  padding: 10px 80px 10px 80px;
+}
+
+.hidden {
+  display: none;
+}
+.pointerss {
+  cursor: pointer;
+}
