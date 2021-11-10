@@ -185,10 +185,11 @@ exports.deleteUser = async (req, res) => {
         exclude: ["createdAt", "updatedAt"],
       },
     });
+
     res.send({
       status: "success",
       message: "Delete user success",
-      datas: data,
+      data,
     });
   } catch (error) {
     console.log(error);
@@ -201,11 +202,9 @@ exports.deleteUser = async (req, res) => {
 
 exports.checkAuth = async (req, res) => {
   try {
-    const id = req.user.id;
-
     const dataUser = await user.findOne({
       where: {
-        id,
+        id: req.user.id,
       },
       attributes: {
         exclude: ["createdAt", "updatedAt", "password"],
@@ -220,14 +219,16 @@ exports.checkAuth = async (req, res) => {
 
     res.send({
       status: "success",
-      data: {
-        user: {
+      data: [
+        {
           id: dataUser.id,
-          name: dataUser.name,
+          fullname: dataUser.fullname,
           email: dataUser.email,
+          phone: dataUser.phone,
+          address: dataUser.address,
           role: dataUser.role,
         },
-      },
+      ],
     });
   } catch (error) {
     console.log(error);

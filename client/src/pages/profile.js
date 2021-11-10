@@ -13,7 +13,7 @@ function Profile() {
   const title = "Profil";
   document.title = "Dewe Tour | " + title;
 
-  const { data: history } = useQuery("transChace", async () => {
+  const { data: history } = useQuery("historyChace", async () => {
     const config = {
       method: "GET",
       headers: {

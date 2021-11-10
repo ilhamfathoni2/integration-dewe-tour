@@ -156,9 +156,7 @@ function Descriptions({ item }) {
               <b>Total :</b>
             </h3>
             <h3>
-              <b className="text-danger">
-                Rp. {convertRupiah.convert(totalCount)}
-              </b>
+              <b className="text-danger">{convertRupiah.convert(totalCount)}</b>
             </h3>
           </div>
           <hr />

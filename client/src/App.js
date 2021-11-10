@@ -16,24 +16,6 @@ import Trip from "./pages/trip";
 
 import { API } from "./config/api";
 
-function AuthRoute({ children, ...rest }) {
-  const [state] = useContext(UserContext);
-  let history = useHistory();
-
-  return (
-    <Route
-      {...rest}
-      render={() => {
-        if (!state.isLogin) {
-          return history.push("/");
-        } else {
-          return children;
-        }
-      }}
-    />
-  );
-}
-
 function PrivateRoute({ children, ...rest }) {
   const [state] = useContext(UserContext);
   let history = useHistory();
@@ -97,11 +79,9 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/detail/:id" component={Detail} />
-        {/* <AuthRoute> */}
         <Route exact path="/payment" component={Pay} />
         <Route exact path="/status-payment" component={AfterPay} />
         <Route exact path="/profile" component={Profile} />
-        {/* </AuthRoute> */}
         <PrivateRoute>
           <Route exact path="/incom" component={IncomTransaction} />
           <Route exact path="/incom-trip" component={IncomTrip} />
