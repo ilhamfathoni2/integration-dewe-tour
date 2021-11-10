@@ -1,14 +1,15 @@
 import { Container, Image } from "react-bootstrap";
 import "./profile.css";
 import Icon from "../src-assets/IconPay.png";
-import Invoice from "../src-assets/struck.png";
 
 import convertRupiah from "rupiah-format";
 
 function History({ item }) {
-  let statusPay = "";
+  let statusPay;
   if (item.status === "Waiting Payment") {
     statusPay = "badge-warning p-2 text-warning";
+  } else if (item.status === "Waiting Approve") {
+    statusPay = "badge-info p-2 text-primary";
   } else if (item.status === "Cancel") {
     statusPay = "badge-danger p-2 text-danger";
   } else {
@@ -26,13 +27,13 @@ function History({ item }) {
             </div>
             <div className="d-flex justify-content-end p-0 m-0">
               <h6 className="card-text">
-                <b>{item.trip.dateTrip}</b>
+                <b>{item.dateTrip}</b>
               </h6>
             </div>
             <div className="d-flex justify-content-between mt-4">
               <div className="card-body p-0 m-0">
                 <h4>
-                  <b>{item.trip.title}</b>
+                  <b>{item.title}</b>
                 </h4>
                 <p>{item.country}</p>
                 <span className={statusPay}>{item.status}</span>
@@ -41,24 +42,24 @@ function History({ item }) {
                 <h6>
                   <b>Date Trip</b>
                 </h6>
-                <p>{item.trip.dateTrip}</p>
+                <p>{item.dateTrip}</p>
                 <h6>
                   <b>Accommodation</b>
                 </h6>
-                <p>{item.trip.accomodation}</p>
+                <p>{item.accomodation}</p>
               </div>
               <div className="card-body d-flex flex-column p-0 m-0">
                 <h6>
                   <b>Duration</b>
                 </h6>
-                <p>{item.trip.day}</p>
+                <p>{item.day}</p>
                 <h6>
                   <b>Transportation</b>
                 </h6>
-                <p>{item.trip.transportation}</p>
+                <p>{item.transportation}</p>
               </div>
               <div className="card-body d-flex align-items-end flex-column p-0 m-0">
-                <Image className="inv" src={item.attachments} />
+                <Image className="inv" src={item.attachment} />
               </div>
             </div>
             <table className="table table-striped">
@@ -71,18 +72,19 @@ function History({ item }) {
               </thead>
               <tbody>
                 <tr>
-                  <td>{item.user.fullname}</td>
-                  <td>{item.user.address}</td>
-                  <td>{item.user.phone}</td>
+                  <td>{item.fullname}</td>
+                  <td>{item.address}</td>
+                  <td>{item.phone}</td>
                   <td>
-                    <b>Qty : {item.counterQty}</b>
+                    <b className="mr4">Qty :</b>
+                    <b>{item.counterQty}</b>
                   </td>
                 </tr>
               </tbody>
             </table>
             <div className="d-flex justify-content-end mb-0 mt-4">
               <h5>
-                Total :
+                <b className="mr5">Total :</b>
                 <b className="text-danger">
                   {"  " + convertRupiah.convert(item.total)}
                 </b>

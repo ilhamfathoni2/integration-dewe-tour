@@ -23,6 +23,7 @@ function ComPay({ item }) {
 
   const [form, setForm] = useState({
     attachment: "",
+    status: "",
   });
 
   const handleChange = (e) => {
@@ -41,11 +42,10 @@ function ComPay({ item }) {
   const handleSubmit = useMutation(async (e) => {
     e.preventDefault();
     try {
+      console.log(preview);
       const formData = new FormData();
-      if (preview) {
-        formData.set("attachment", preview[0]);
-      }
-      formData.set("status", "Waiting Approve");
+      formData.append("attachment", preview[0]);
+      formData.append("status", "Waiting Approve");
 
       const config = {
         method: "PATCH",
@@ -63,9 +63,11 @@ function ComPay({ item }) {
     }
   });
 
-  let statusPay = "";
+  let statusPay;
   if (item.status === "Waiting Payment") {
     statusPay = "badge-warning p-2 text-warning";
+  } else if (item.status === "Waiting Approve") {
+    statusPay = "badge-info p-2 text-primary";
   } else if (item.status === "Cancel") {
     statusPay = "badge-danger p-2 text-danger";
   } else {
@@ -89,7 +91,7 @@ function ComPay({ item }) {
             <div className="d-flex justify-content-between mt-4">
               <div className="card-body p-0 m-0">
                 <h4>
-                  <b>{item.title}</b>
+                  <b>{item.trip.title}</b>
                 </h4>
                 <p>{item.country}</p>
                 <span className={statusPay}>{item.status}</span>

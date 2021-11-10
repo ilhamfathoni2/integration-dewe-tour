@@ -10,6 +10,9 @@ import { API } from "../config/api";
 function Profile() {
   let api = API();
 
+  const title = "Profil";
+  document.title = "Dewe Tour | " + title;
+
   const { data: history } = useQuery("transChace", async () => {
     const config = {
       method: "GET",

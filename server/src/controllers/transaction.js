@@ -3,12 +3,12 @@ const Joi = require("joi");
 
 exports.getTransactions = async (req, res) => {
   try {
-    const { id } = req.user;
+    const token = req.user;
 
     const data = await transaction.findAll({
       where: {
         status: "Waiting Payment",
-        userId: id,
+        userId: req.user.id,
       },
       include: [
         {
@@ -27,7 +27,7 @@ exports.getTransactions = async (req, res) => {
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
-      id,
+      token,
     });
 
     res.send({
@@ -46,11 +46,11 @@ exports.getTransactions = async (req, res) => {
 
 exports.getTrscHistory = async (req, res) => {
   try {
-    const { id } = req.user;
+    const token = req.user;
 
     const data = await transaction.findAll({
       where: {
-        userId: id,
+        userId: req.user.id,
       },
       include: [
         {
@@ -69,13 +69,40 @@ exports.getTrscHistory = async (req, res) => {
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
-      id,
+      token,
     });
+
+    const newData = data.map((item) => ({
+      id: item.id,
+      counterQty: item.counterQty,
+      total: item.total,
+      status: item.status,
+      attachment: "http://localhost:5000/uploads/" + item.attachment,
+      tripId: item.tripId,
+      userId: item.userId,
+      country: item.country,
+      tripId: item.trip.id,
+      title: item.trip.title,
+      title: item.trip.title,
+      accomodation: item.trip.accomodation,
+      transportation: item.trip.transportation,
+      transportation: item.trip.transportation,
+      eat: item.trip.eat,
+      day: item.trip.day,
+      night: item.trip.night,
+      night: item.trip.night,
+      dateTrip: item.trip.dateTrip,
+      price: item.trip.price,
+      userId: item.user.id,
+      fullname: item.user.fullname,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+    }));
 
     res.send({
       status: "success...",
-      data,
-      attachments: "http://localhost:5000/uploads/" + data.attachment,
+      data: newData,
     });
   } catch (error) {
     console.log(error);
@@ -104,7 +131,7 @@ exports.getTransactionId = async (req, res) => {
         {
           model: user,
           attributes: {
-            exclude: ["createdAt", "updatedAt"],
+            exclude: ["createdAt", "updatedAt", "password"],
           },
         },
       ],
@@ -117,6 +144,7 @@ exports.getTransactionId = async (req, res) => {
     res.send({
       status: "success...",
       data,
+      attachments: "http://localhost:5000/uploads/" + data.attachment,
     });
   } catch (error) {
     console.log(error);
@@ -129,19 +157,15 @@ exports.getTransactionId = async (req, res) => {
 
 exports.addTransaction = async (req, res) => {
   try {
-    const { idUser } = req.user;
-
     const newTransaction = await transaction.create({
       counterQty: req.body.counterQty,
       total: req.body.total,
       accomodation: req.body.accomodation,
       status: req.body.status,
       tripId: req.body.tripId,
-      userId: req.body.userId,
+      userId: req.user.id,
       country: req.body.country,
-      // attachment: req.files.attachment[0].filename,
       attachment: req.body.attachment,
-      idUser,
     });
 
     if (newTransaction) {
@@ -189,17 +213,20 @@ exports.addTransaction = async (req, res) => {
 };
 
 exports.updateTransaction = async (req, res) => {
-  const iduser = req.user.id;
   const { id } = req.params;
   try {
-    await transaction.update(req.body, {
-      where: {
-        id,
+    await transaction.update(
+      {
+        status: req.body.status,
+        attachment: req.files.attachment[0].filename,
       },
-      status: req.body.status,
-      attachment: req.files.attachment[0].filename,
-      iduser,
-    });
+
+      {
+        where: {
+          id,
+        },
+      }
+    );
     const data = await transaction.findOne({
       include: [
         {

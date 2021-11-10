@@ -28,6 +28,14 @@
   margin-right: 56px;
 }
 
+.badge-info {
+  background-color: #4a73fa2f !important;
+  border-radius: 5px;
+}
+.text-primary {
+  color: #072aa0 !important;
+}
+
 .badge-danger {
   background-color: #ff67672f;
   border-radius: 5px;

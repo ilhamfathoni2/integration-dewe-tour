@@ -10,7 +10,10 @@ import pay from "../src-assets/bill1.png";
 import logoutIcon from "../src-assets/logout1.png";
 import tripIcon from "../src-assets/journey1.png";
 
+import { useHistory } from "react-router";
+
 function AfterLogin() {
+  const history = useHistory();
   const [state, dispatch] = useContext(UserContext);
 
   const handleLogout = (e) => {
@@ -19,6 +22,7 @@ function AfterLogin() {
     dispatch({
       type: "LOGOUT",
     });
+    history.push("/");
   };
 
   if (state.user.role === "admin") {

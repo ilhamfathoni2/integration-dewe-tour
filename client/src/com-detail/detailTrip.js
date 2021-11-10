@@ -31,7 +31,7 @@ function Descriptions({ item }) {
 
   let totalCount = item.price * count;
   let status = "Waiting Payment";
-  let dumyAttachment = "1635732856982-tes.jpg";
+  let dumyAttachment = "";
 
   const handleBuy = useMutation(async () => {
     try {
@@ -41,7 +41,6 @@ function Descriptions({ item }) {
         status: status,
         attachment: dumyAttachment,
         tripId: item.id,
-        userId: state.user.id,
         country: item.country.name,
       };
 

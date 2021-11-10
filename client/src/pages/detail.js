@@ -11,6 +11,9 @@ function Detail() {
   let { id } = useParams();
   let api = API();
 
+  const title = "Detail";
+  document.title = "Dewe Tour | " + title;
+
   const { data: trip } = useQuery("payChace", async () => {
     const config = {
       method: "GET",

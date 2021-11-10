@@ -44,9 +44,7 @@ function PrivateRoute({ children, ...rest }) {
       render={() => {
         if (state.user.role === "admin") {
           return children;
-        } else if (state.user.role === "user") {
-          return history.push("/");
-        } else if (!state.isLogin) {
+        } else {
           return history.push("/");
         }
       }}
@@ -99,11 +97,11 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/detail/:id" component={Detail} />
-        <AuthRoute>
-          <Route exact path="/payment" component={Pay} />
-          <Route exact path="/status-payment" component={AfterPay} />
-          <Route exact path="/profile" component={Profile} />
-        </AuthRoute>
+        {/* <AuthRoute> */}
+        <Route exact path="/payment" component={Pay} />
+        <Route exact path="/status-payment" component={AfterPay} />
+        <Route exact path="/profile" component={Profile} />
+        {/* </AuthRoute> */}
         <PrivateRoute>
           <Route exact path="/incom" component={IncomTransaction} />
           <Route exact path="/incom-trip" component={IncomTrip} />
