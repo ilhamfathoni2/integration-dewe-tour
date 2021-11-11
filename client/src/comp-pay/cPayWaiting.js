@@ -4,6 +4,7 @@ import Icon from "../src-assets/IconPay.png";
 import Invoice from "../src-assets/struck.png";
 
 import convertRupiah from "rupiah-format";
+import moment from "moment";
 
 function PayWaiting({ item }) {
   let statusPay = "";
@@ -26,7 +27,7 @@ function PayWaiting({ item }) {
             </div>
             <div className="d-flex justify-content-end p-0 m-0">
               <h6 className="card-text">
-                <b>{item.trip.dateTrip}</b>
+                <b>{moment(item.trip.dateTrip).format("DD MMMM YYYY")}</b>
               </h6>
             </div>
             <div className="d-flex justify-content-between mt-4">
@@ -41,7 +42,7 @@ function PayWaiting({ item }) {
                 <h6>
                   <b>Date Trip</b>
                 </h6>
-                <p>{item.trip.dateTrip}</p>
+                <p>{moment(item.trip.dateTrip).format("DD MMMM YYYY")}</p>
                 <h6>
                   <b>Accommodation</b>
                 </h6>

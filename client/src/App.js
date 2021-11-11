@@ -17,14 +17,14 @@ import Trip from "./pages/trip";
 import { API } from "./config/api";
 
 function PrivateRoute({ children, ...rest }) {
-  const [state] = useContext(UserContext);
+  let users = JSON.parse(localStorage.getItem("user"));
   let history = useHistory();
 
   return (
     <Route
       {...rest}
       render={() => {
-        if (state.user.role === "admin") {
+        if (users.data.role === "admin") {
           return children;
         } else {
           return history.push("/");

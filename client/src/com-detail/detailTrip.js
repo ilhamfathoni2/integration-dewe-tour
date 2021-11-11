@@ -11,6 +11,7 @@ import iconDuration from "../src-assets/duration.png";
 import iconDate from "../src-assets/date.png";
 
 import convertRupiah from "rupiah-format";
+import moment from "moment";
 
 import { useMutation } from "react-query";
 import { API } from "../config/api";
@@ -126,7 +127,7 @@ function Descriptions({ item }) {
             <div className="item-2">
               <img className="icon-info" src={iconDate} alt="img" />
               <h5 className="title-info">
-                <b>{item.dateTrip}</b>
+                <b>{moment(item.dateTrip).format("DD MMMM YYYY")}</b>
               </h5>
             </div>
           </div>

@@ -21,6 +21,7 @@ const reducer = (state, action) => {
     case "AUTH_ERROR":
     case "LOGOUT":
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         isLogin: false,
         user: {},
