@@ -116,6 +116,7 @@ exports.addTrip = async (req, res) => {
     dateTrip: Joi.date().required(),
     price: Joi.number().required(),
     quota: Joi.string().required(),
+    quotaMinus: Joi.string().required(),
     description: Joi.string().required(),
   });
 

@@ -23,7 +23,7 @@ function Descriptions({ item }) {
   const [count, setCount] = useState(1);
 
   const increment = () => {
-    if (count < item.quota) {
+    if (count < item.quotaMinus) {
       setCount(count + 1);
     }
   };
@@ -164,13 +164,25 @@ function Descriptions({ item }) {
           </div>
           <hr />
           <div className="d-flex justify-content-end mt-4">
-            {users.data.role === "user" ? (
-              <Button variant="warning" onClick={() => handleBuy.mutate()}>
-                <b>BOOK NOW</b>
-              </Button>
-            ) : (
-              <Button hidden></Button>
-            )}
+            {(() => {
+              if (item.quotaMinus === "0") {
+                return (
+                  <h3>
+                    <span class="badge bg-warning text-dark p-3">
+                      Maaf Kuota Habis
+                    </span>
+                  </h3>
+                );
+              } else if (users.data.role === "admin") {
+                return <Button hidden></Button>;
+              } else {
+                return (
+                  <Button variant="warning" onClick={() => handleBuy.mutate()}>
+                    <b>BOOK NOW</b>
+                  </Button>
+                );
+              }
+            })()}
           </div>
         </div>
       </Container>

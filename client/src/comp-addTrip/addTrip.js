@@ -30,6 +30,7 @@ function Addnewtrip() {
     dateTrip: "",
     price: "",
     quota: "",
+    quotaMinus: "",
     description: "",
     image: "",
   });
@@ -77,6 +78,7 @@ function Addnewtrip() {
       formData.set("dateTrip", form.dateTrip);
       formData.set("price", form.price);
       formData.set("quota", form.quota);
+      formData.set("quotaMinus", form.quotaMinus);
       formData.set("description", form.description);
 
       for (let i = 0; i < form.image.length; i++) {
@@ -217,6 +219,17 @@ function Addnewtrip() {
               type="text"
               className="form-control"
               name="quota"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">
+              <b>Remaining Quota</b>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              name="quotaMinus"
               onChange={handleChange}
             />
           </div>

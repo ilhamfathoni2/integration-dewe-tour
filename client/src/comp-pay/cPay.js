@@ -64,7 +64,7 @@ function ComPay({ item }) {
     e.preventDefault();
     try {
       const quotas = {
-        quotaMinus: item.counterQty,
+        quotaMinus: item.trip.quotaMinus - item.counterQty,
       };
 
       console.log(quotas);
