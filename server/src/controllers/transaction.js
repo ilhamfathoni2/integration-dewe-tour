@@ -33,7 +33,6 @@ exports.getTransactions = async (req, res) => {
     res.send({
       status: "success...",
       data,
-      attachments: "http://localhost:5000/uploads/" + data.attachment,
     });
   } catch (error) {
     console.log(error);
@@ -72,37 +71,47 @@ exports.getTrscHistory = async (req, res) => {
       token,
     });
 
-    const newData = data.map((item) => ({
-      id: item.id,
-      counterQty: item.counterQty,
-      total: item.total,
-      status: item.status,
-      attachment: "http://localhost:5000/uploads/" + item.attachment,
-      tripId: item.tripId,
-      userId: item.userId,
-      country: item.country,
-      tripId: item.trip.id,
-      title: item.trip.title,
-      title: item.trip.title,
-      accomodation: item.trip.accomodation,
-      transportation: item.trip.transportation,
-      transportation: item.trip.transportation,
-      eat: item.trip.eat,
-      day: item.trip.day,
-      night: item.trip.night,
-      night: item.trip.night,
-      dateTrip: item.trip.dateTrip,
-      price: item.trip.price,
-      userId: item.user.id,
-      fullname: item.user.fullname,
-      email: item.user.email,
-      phone: item.user.phone,
-      address: item.user.address,
-    }));
+    res.send({
+      status: "success...",
+      data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.incomTrsc = async (req, res) => {
+  try {
+    const { idUser } = req.user;
+
+    const data = await transaction.findAll({
+      include: [
+        {
+          model: trip,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+      idUser,
+    });
 
     res.send({
       status: "success...",
-      data: newData,
+      data,
     });
   } catch (error) {
     console.log(error);
@@ -168,6 +177,8 @@ exports.addTransaction = async (req, res) => {
       attachment: req.body.attachment,
     });
 
+    console.log(newTransaction);
+
     if (newTransaction) {
       let data = await transaction.findOne({
         where: {
@@ -197,10 +208,7 @@ exports.addTransaction = async (req, res) => {
       res.send({
         status: "success",
         message: "Transaction success",
-        datas: {
-          data,
-          attachment: "http://localhost:5000/uploads/" + data.attachment,
-        },
+        datas: data,
       });
     }
   } catch (error) {
@@ -245,6 +253,54 @@ exports.updateTransaction = async (req, res) => {
       where: {
         id,
       },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+    res.send({
+      status: "success",
+      message: "Edit transaction success",
+      datas: data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.updateIncom = async (req, res) => {
+  const { id } = req.params;
+  const token = req.user;
+  try {
+    await transaction.update(
+      {
+        status: req.body.status,
+      },
+      {
+        where: {
+          id,
+        },
+      },
+      token
+    );
+    const data = await transaction.findOne({
+      include: [
+        {
+          model: trip,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },

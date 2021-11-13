@@ -28,7 +28,6 @@ function ComPay({ item }) {
   });
 
   const handleChange = (e) => {
-    console.log(e.target.files);
     setForm({
       ...form,
       [e.target.name]:
@@ -40,10 +39,9 @@ function ComPay({ item }) {
     }
   };
 
-  const handleSubmit = useMutation(async (e) => {
+  const updateTransaction = useMutation(async (e) => {
     e.preventDefault();
     try {
-      console.log(preview);
       const formData = new FormData();
       formData.append("attachment", preview[0]);
       formData.append("status", "Waiting Approve");
@@ -57,6 +55,43 @@ function ComPay({ item }) {
       };
 
       await api.patch("/transaction/" + item.id, config);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const updateQuota = useMutation(async (e) => {
+    e.preventDefault();
+    try {
+      const quotas = {
+        quotaMinus: item.counterQty,
+      };
+
+      console.log(quotas);
+
+      const quotaMin = JSON.stringify(quotas);
+
+      const configs = {
+        method: "PATCH",
+        headers: {
+          Authorization: "Bearer " + localStorage.token,
+          "Content-Type": "application/json",
+        },
+        body: quotaMin,
+      };
+
+      const quotass = await api.patch("/trip/" + item.tripId, configs);
+      console.log(quotass);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const handleSubmit = useMutation(async (e) => {
+    e.preventDefault();
+    try {
+      updateTransaction.mutate(e);
+      updateQuota.mutate(e);
 
       history.push("/profile");
     } catch (error) {

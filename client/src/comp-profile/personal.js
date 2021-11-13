@@ -14,7 +14,7 @@ import { API } from "../config/api";
 function Personal() {
   let api = API();
 
-  const { data: checkAuth } = useQuery("profilChace", async () => {
+  const { data: profil } = useQuery("profilChace", async () => {
     const config = {
       method: "GET",
       headers: {
@@ -22,14 +22,14 @@ function Personal() {
       },
     };
 
-    const response = await api.get("/check-auth", config);
+    const response = await api.get("/user-data", config);
 
     return response.data;
   });
 
   return (
     <>
-      {checkAuth?.map((item, index) => (
+      {profil?.map((item, index) => (
         <div className="container d-flex justify-content-center">
           <div className="card col-sm-7 mt-5">
             <div className="card-body p-4">

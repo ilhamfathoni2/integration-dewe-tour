@@ -1,6 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../context/authContext";
 
 import { Container, Image, Button, Form } from "react-bootstrap";
 import "./detail.css";
@@ -19,16 +18,18 @@ import { API } from "../config/api";
 function Descriptions({ item }) {
   let api = API();
   let history = useHistory();
+  let users = JSON.parse(localStorage.getItem("user"));
 
   const [count, setCount] = useState(1);
+
   const increment = () => {
-    setCount(count + 1);
+    if (count < item.quota) {
+      setCount(count + 1);
+    }
   };
   const decrement = () => {
     setCount(count <= 1 ? count : count - 1);
   };
-
-  const [state] = useContext(UserContext);
 
   let totalCount = item.price * count;
   let status = "Waiting Payment";
@@ -54,14 +55,15 @@ function Descriptions({ item }) {
       const config = {
         method: "POST",
         headers: {
-          Authorization: "Basic " + localStorage.token,
-          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body,
       };
 
       // Insert transaction data
-      await api.post("/transaction", config);
+      const res = await api.post("/transaction", config);
+      console.log(res);
 
       history.push("/payment");
     } catch (error) {
@@ -137,7 +139,7 @@ function Descriptions({ item }) {
         </h5>
         <p className="mb-5">{item.description}</p>
         <div className="mb-20">
-          <div className="price-1 mt-2">
+          <div className="text-secondary price-1 mt-2">
             <h3>
               <b>{convertRupiah.convert(item.price)} / Person</b>
             </h3>
@@ -162,14 +164,12 @@ function Descriptions({ item }) {
           </div>
           <hr />
           <div className="d-flex justify-content-end mt-4">
-            {!state.isLogin ? (
-              <Button hidden>
-                <b>BOOK NOW</b>
-              </Button>
-            ) : (
+            {users.data.role === "user" ? (
               <Button variant="warning" onClick={() => handleBuy.mutate()}>
                 <b>BOOK NOW</b>
               </Button>
+            ) : (
+              <Button hidden></Button>
             )}
           </div>
         </div>

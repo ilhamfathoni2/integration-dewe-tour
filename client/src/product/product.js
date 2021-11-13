@@ -24,11 +24,16 @@ function Product() {
 
   return (
     <>
-      <Container className="d-flex flex-wrap justify-content-center">
+      <Container className="d-flex flex-wrap justify-content-between">
         {trip?.map((item, index) => (
           <Link to={`/detail/` + item.id} className="link">
             <Card className="card-product">
               <Card.Body>
+                <div className="quota">
+                  <b>
+                    {item.quotaMinus} / {item.quota}
+                  </b>
+                </div>
                 <Image className="img-product mb-3" src={item.image[1].url} />
                 <h4 className="card-title">{item.title}</h4>
                 <h5 className="price">

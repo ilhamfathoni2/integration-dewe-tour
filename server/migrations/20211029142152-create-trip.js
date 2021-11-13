@@ -44,6 +44,9 @@ module.exports = {
       quota: {
         type: Sequelize.STRING,
       },
+      quotaMinus: {
+        type: Sequelize.STRING,
+      },
       description: {
         type: Sequelize.STRING,
       },

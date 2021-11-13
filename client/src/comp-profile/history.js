@@ -3,13 +3,14 @@ import "./profile.css";
 import Icon from "../src-assets/IconPay.png";
 
 import convertRupiah from "rupiah-format";
+import moment from "moment";
 
 function History({ item }) {
   let statusPay;
   if (item.status === "Waiting Payment") {
     statusPay = "badge-warning p-2 text-warning";
   } else if (item.status === "Waiting Approve") {
-    statusPay = "badge-info p-2 text-primary";
+    statusPay = "badge-info p-2 text-primarys";
   } else if (item.status === "Cancel") {
     statusPay = "badge-danger p-2 text-danger";
   } else {
@@ -27,13 +28,13 @@ function History({ item }) {
             </div>
             <div className="d-flex justify-content-end p-0 m-0">
               <h6 className="card-text">
-                <b>{item.dateTrip}</b>
+                <b>{moment(item.trip.dateTrip).format("DD MMMM YYYY")}</b>
               </h6>
             </div>
             <div className="d-flex justify-content-between mt-4">
               <div className="card-body p-0 m-0">
                 <h4>
-                  <b>{item.title}</b>
+                  <b>{item.trip.title}</b>
                 </h4>
                 <p>{item.country}</p>
                 <span className={statusPay}>{item.status}</span>
@@ -42,24 +43,28 @@ function History({ item }) {
                 <h6>
                   <b>Date Trip</b>
                 </h6>
-                <p>{item.dateTrip}</p>
+                <p>{moment(item.trip.dateTrip).format("DD MMMM YYYY")}</p>
                 <h6>
                   <b>Accommodation</b>
                 </h6>
-                <p>{item.accomodation}</p>
+                <p>{item.trip.accomodation}</p>
               </div>
               <div className="card-body d-flex flex-column p-0 m-0">
                 <h6>
                   <b>Duration</b>
                 </h6>
-                <p>{item.day}</p>
+                <p>{item.trip.day}</p>
                 <h6>
                   <b>Transportation</b>
                 </h6>
-                <p>{item.transportation}</p>
+                <p>{item.trip.transportation}</p>
               </div>
               <div className="card-body d-flex align-items-end flex-column p-0 m-0">
-                <Image className="inv" src={item.attachment} />
+                <Image
+                  className="inv"
+                  alt="Upload Bukti Pembayaran"
+                  src={"http://localhost:5000/uploads/" + item.attachment}
+                />
               </div>
             </div>
             <table className="table table-striped">
@@ -72,9 +77,9 @@ function History({ item }) {
               </thead>
               <tbody>
                 <tr>
-                  <td>{item.fullname}</td>
-                  <td>{item.address}</td>
-                  <td>{item.phone}</td>
+                  <td>{item.user.fullname}</td>
+                  <td>{item.user.address}</td>
+                  <td>{item.user.phone}</td>
                   <td>
                     <b className="mr4">Qty :</b>
                     <b>{item.counterQty}</b>

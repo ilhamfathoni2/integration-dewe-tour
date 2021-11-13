@@ -18,10 +18,12 @@ function Profile() {
       method: "GET",
       headers: {
         Authorization: "Basic " + localStorage.token,
+        "Content-Type": "application/json",
       },
     };
 
     const response = await api.get("/history", config);
+    console.log(response);
 
     return response.data;
   });

@@ -56,16 +56,17 @@ function Login() {
       const response = await api.post("/login", config);
 
       console.log(response);
-      let userData = JSON.stringify(response);
 
       // Checking process
       if (response.status === "success...") {
-        localStorage.setItem("user", userData);
         // Send data to useContext
         dispatch({
           type: "LOGIN_SUCCESS",
           payload: response.data,
         });
+
+        let userData = JSON.stringify(response);
+        localStorage.setItem("user", userData);
 
         // Status check
         if (response.data.role === "admin") {

@@ -16,6 +16,7 @@ const {
   deleteUser,
   getAllUsers,
   checkAuth,
+  user,
 } = require("../controllers/auth");
 const {
   getTrips,
@@ -36,6 +37,8 @@ const {
   updateTransaction,
   deleteTransaction,
   getTrscHistory,
+  incomTrsc,
+  updateIncom,
 } = require("../controllers/transaction");
 
 // Route
@@ -44,6 +47,7 @@ router.post("/login", login);
 router.get("/users", auth, adminOnly, getAllUsers);
 router.delete("/users/:id", auth, adminOnly, deleteUser);
 router.get("/check-auth", auth, checkAuth);
+router.get("/user-data", auth, user);
 
 router.post("/country", auth, adminOnly, addCountrys);
 router.get("/country", getAllCountry);
@@ -54,20 +58,23 @@ router.delete("/country/:id", auth, adminOnly, deleteCountry);
 router.get("/trip", getTrips);
 router.get("/trip/:id", getTripId);
 router.post("/trip", auth, adminOnly, uploadFile("image"), addTrip);
-router.patch("/trip/:id", auth, adminOnly, updateTrip);
+router.patch("/trip/:id", auth, updateTrip);
 router.delete("/trip/:id", auth, adminOnly, deleteTrip);
 
-router.get("/history", auth, getTrscHistory);
-
+router.post("/transaction", auth, addTransaction);
 router.get("/transaction", auth, getTransactions);
 router.get("/transaction/:id", auth, getTransactionId);
-router.post("/transaction", auth, addTransaction);
 router.patch(
   "/transaction/:id",
   auth,
   attachmentFile("attachment"),
   updateTransaction
 );
+
+router.get("/history", auth, getTrscHistory);
+router.get("/incom-transaction", auth, incomTrsc);
+
+router.patch("/update-incom/:id", auth, adminOnly, updateIncom);
 router.delete("/transaction/:id", auth, deleteTransaction);
 
 module.exports = router;

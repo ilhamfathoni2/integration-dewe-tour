@@ -80,8 +80,8 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   // our validation schema here
   const schema = Joi.object({
-    email: Joi.string().email().min(6).required(),
-    password: Joi.string().min(6).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(5).required(),
   });
 
   // do validation and get error object from schema.validate
@@ -104,34 +104,39 @@ exports.login = async (req, res) => {
         exclude: ["createdAt", "updatedAt"],
       },
     });
-    // compare password between entered from client and from database
-    const isValid = await bcrypt.compare(req.body.password, userExist.password);
+    if (userExist) {
+      // compare password between entered from client and from database
+      const isValid = await bcrypt.compare(
+        req.body.password,
+        userExist.password
+      );
 
-    // check if not valid then return response with status 400 (bad request)
-    if (!isValid) {
-      return res.status(400).send({
-        status: "failed",
-        message: "credential is invalid",
+      // check if not valid then return response with status 400 (bad request)
+      if (!isValid) {
+        return res.status(400).send({
+          status: "failed",
+          message: "credential is invalid",
+        });
+      }
+
+      // generate token
+      const token = jwt.sign(
+        { id: userExist.id, email: userExist.email, role: userExist.role },
+        process.env.TOKEN_KEY
+      );
+
+      res.status(200).send({
+        status: "success...",
+        data: {
+          fullname: userExist.fullname,
+          email: userExist.email,
+          phone: userExist.phone,
+          address: userExist.address,
+          role: userExist.role,
+          token,
+        },
       });
     }
-
-    // generate token
-    const token = jwt.sign(
-      { id: userExist.id, email: userExist.email, role: userExist.role },
-      process.env.TOKEN_KEY
-    );
-
-    res.status(200).send({
-      status: "success...",
-      data: {
-        fullname: userExist.fullname,
-        email: userExist.email,
-        phone: userExist.phone,
-        address: userExist.address,
-        role: userExist.role,
-        token,
-      },
-    });
   } catch (error) {
     console.log(error);
     res.status(500).send({
@@ -201,6 +206,43 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.checkAuth = async (req, res) => {
+  try {
+    const dataUser = await user.findOne({
+      where: {
+        id: req.user.id,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
+    });
+
+    if (!dataUser) {
+      return res.status(404).send({
+        status: "failed",
+      });
+    }
+
+    res.send({
+      status: "success",
+      data: {
+        id: dataUser.id,
+        fullname: dataUser.fullname,
+        email: dataUser.email,
+        phone: dataUser.phone,
+        address: dataUser.address,
+        role: dataUser.role,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.user = async (req, res) => {
   try {
     const dataUser = await user.findOne({
       where: {

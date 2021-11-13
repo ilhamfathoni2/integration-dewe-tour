@@ -9,6 +9,10 @@
   padding: 10px 25px 10px 25px;
 }
 
+.mt-10 {
+  margin-top: 155px;
+}
+
 .btn-successt {
   margin-left: 15px;
   margin-right: 40px;
@@ -56,4 +60,28 @@ p {
 
 h4 {
   font-size: 17px;
+}
+
+.badge-info {
+  background-color: #4a73fa2f !important;
+  border-radius: 5px;
+}
+
+.text-primarys {
+  color: #072aa0 !important;
+}
+
+.badge-danger {
+  background-color: #ff67672f;
+  border-radius: 5px;
+}
+
+.badge-warning {
+  background-color: #fff5672f;
+  border-radius: 5px;
+}
+
+.badge-success {
+  background-color: #2ae4593b;
+  border-radius: 5px;
 }

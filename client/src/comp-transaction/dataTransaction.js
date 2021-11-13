@@ -2,7 +2,25 @@ import { Container, Table } from "react-bootstrap";
 import "./transaction.css";
 import ModalTransaction from "./modal";
 
+import { useQuery } from "react-query";
+import { API } from "../config/api";
+
 function DataTransaction() {
+  let api = API();
+
+  const { data: transaction } = useQuery("incomTrscChace", async () => {
+    const config = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await api.get("/incom-transaction", config);
+    return response.data;
+  });
+
   return (
     <>
       <Container>
@@ -21,46 +39,50 @@ function DataTransaction() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Barak Obama</td>
-                  <td>Amerika</td>
-                  <td>Bca.jpg</td>
-                  <td className="text-warning">
-                    <b>Pending</b>
-                  </td>
-                  <td className="text-center">
-                    <ModalTransaction />
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Barak Obama</td>
-                  <td>Amerika</td>
-                  <td>Bca.jpg</td>
-                  <td className="text-success">
-                    <b>Approve</b>
-                  </td>
-                  <td className="text-center">
-                    <ModalTransaction />
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Barak Obama</td>
-                  <td>Amerika</td>
-                  <td>Bca.jpg</td>
-                  <td className="text-danger">
-                    <b>Cancel</b>
-                  </td>
-                  <td className="text-center">
-                    <ModalTransaction />
-                  </td>
-                </tr>
+                {transaction?.map((item, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{item.user.fullname}</td>
+                    <td>{item.country}</td>
+                    <td>{item.attachment}</td>
+                    {(() => {
+                      if (item.status === "Waiting Payment") {
+                        return (
+                          <td className="text-warning">
+                            <b>{item.status}</b>
+                          </td>
+                        );
+                      } else if (item.status === "Waiting Approve") {
+                        return (
+                          <td className="text-secondary">
+                            <b>{item.status}</b>
+                          </td>
+                        );
+                      } else if (item.status === "Cancel") {
+                        return (
+                          <td className="text-danger">
+                            <b>{item.status}</b>
+                          </td>
+                        );
+                      } else {
+                        return (
+                          <td className="text-success">
+                            <b>{item.status}</b>
+                          </td>
+                        );
+                      }
+                    })()}
+
+                    <td className="text-center">
+                      <ModalTransaction item={item} />
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
         </div>
+        <div className="mt-10"></div>
       </Container>
     </>
   );

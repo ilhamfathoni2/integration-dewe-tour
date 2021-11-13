@@ -30,6 +30,7 @@ exports.getTrips = async (req, res) => {
       dateTrip: item.dateTrip,
       price: item.price,
       quota: item.quota,
+      quotaMinus: item.quotaMinus,
       description: item.description,
       image: JSON.parse(item.image).map((image, index) => ({
         id: index + 1,
@@ -82,6 +83,7 @@ exports.getTripId = async (req, res) => {
       dateTrip: item.dateTrip,
       price: item.price,
       quota: item.quota,
+      quotaMinus: item.quotaMinus,
       description: item.description,
       image: JSON.parse(item.image).map((image, index) => ({
         id: index + 1,
@@ -182,15 +184,20 @@ exports.addTrip = async (req, res) => {
 
 exports.updateTrip = async (req, res) => {
   try {
-    const { idUser } = req.user;
+    const token = req.user;
     const { id } = req.params;
 
-    await trip.update(req.body, {
-      where: {
-        id,
+    await trip.update(
+      {
+        quotaMinus: req.body.quotaMinus,
       },
-      idUser,
-    });
+      {
+        where: {
+          id,
+        },
+      },
+      token
+    );
     const data = await trip.findOne({
       include: [
         {

@@ -63,7 +63,6 @@ function Addnewtrip() {
     }
   };
 
-  // Create function for handle insert product data with useMutation here ...
   const handleSubmit = useMutation(async (e) => {
     e.preventDefault();
     try {
@@ -215,7 +214,7 @@ function Addnewtrip() {
               <b>Quota</b>
             </label>
             <input
-              type="number"
+              type="text"
               className="form-control"
               name="quota"
               onChange={handleChange}

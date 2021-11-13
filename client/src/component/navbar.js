@@ -14,7 +14,7 @@ function NavMain() {
 
   // const [state] = useContext(UserContext);
 
-  if (!users) {
+  if (users.data.fullname === "") {
     return (
       <>
         <div className="bg-hero-nav"></div>
