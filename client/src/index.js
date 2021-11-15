@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { UserContextProvider } from "./context/authContext";
+import { UserContextProvider } from "./context/authContext.js";
 import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import reportWebVitals from "./reportWebVitals.js";
 
 const client = new QueryClient();
 

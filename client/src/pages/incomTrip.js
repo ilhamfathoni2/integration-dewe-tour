@@ -1,7 +1,7 @@
-import NavMain from "../component/navbar";
-import Footer from "../component/footer";
+import NavMain from "../component/navbar.js";
+import Footer from "../component/footer.js";
 import Product from "../product/product";
-import BtnAdd from "../comp-trip/btnAddCountry";
+import BtnAdd from "../comp-trip/btnAddCountry.js";
 
 function IncomTrip() {
   return (

@@ -2,10 +2,10 @@
 import { Container, Navbar, Image, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../src-assets/Icon.png";
-import AfterLogin from "./afterLogin";
+import AfterLogin from "./afterLogin.js";
 import "./bassic.css";
-import Login from "./login";
-import Register from "./register";
+import Login from "./login.js";
+import Register from "./register.js";
 
 // import { UserContext } from "../context/authContext";
 

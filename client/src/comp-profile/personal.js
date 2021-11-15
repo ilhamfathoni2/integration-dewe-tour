@@ -9,7 +9,7 @@ import Avatar from "../src-assets/Avatar.png";
 
 import { useQuery } from "react-query";
 
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Personal() {
   let api = API();

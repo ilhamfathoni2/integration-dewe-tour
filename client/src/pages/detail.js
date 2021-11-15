@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 
-import NavMain from "../component/navbar";
-import Footer from "../component/footer";
-import Descriptions from "../com-detail/detailTrip";
+import NavMain from "../component/navbar.js";
+import Footer from "../component/footer.js";
+import Descriptions from "../com-detail/detailTrip.js";
 
 import { useQuery } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Detail() {
   let { id } = useParams();

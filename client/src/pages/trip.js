@@ -1,6 +1,6 @@
-import NavMain from "../component/navbar";
-import Footer from "../component/footer";
-import Addnewtrip from "../comp-addTrip/addTrip";
+import NavMain from "../component/navbar.js";
+import Footer from "../component/footer.js";
+import Addnewtrip from "../comp-addTrip/addTrip.js";
 
 function Trip() {
   return (

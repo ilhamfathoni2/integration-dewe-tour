@@ -1,9 +1,9 @@
 import { Container, Table } from "react-bootstrap";
 import "./transaction.css";
-import ModalTransaction from "./modal";
+import ModalTransaction from "./modal.js";
 
 import { useQuery } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function DataTransaction() {
   let api = API();

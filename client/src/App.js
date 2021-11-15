@@ -1,21 +1,21 @@
 import { useContext, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
-import { UserContext } from "./context/authContext";
+import { UserContext } from "./context/authContext.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import HomePage from "./pages/home";
-import Detail from "./pages/detail";
-import Pay from "./pages/pay";
-import AfterPay from "./pages/afterPay";
-import Profile from "./pages/profile";
-import IncomTransaction from "./pages/incomTransaction";
-import IncomTrip from "./pages/incomTrip";
-import Trip from "./pages/trip";
-import Country from "./pages/country";
+import HomePage from "./pages/home.js";
+import Detail from "./pages/detail.js";
+import Pay from "./pages/pay.js";
+import AfterPay from "./pages/afterPay.js";
+import Profile from "./pages/profile.js";
+import IncomTransaction from "./pages/incomTransaction.js";
+import IncomTrip from "./pages/incomTrip.js";
+import Trip from "./pages/trip.js";
+import Country from "./pages/country.js";
 
-import { API } from "./config/api";
+import { API } from "./config/api.js";
 
 function PrivateRoute({ children, ...rest }) {
   let usersData = JSON.parse(localStorage.getItem("user"));
