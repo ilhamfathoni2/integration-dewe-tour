@@ -104,6 +104,10 @@ function Addnewtrip() {
   return (
     <Container>
       <div className="mt-5">
+        <h1>
+          <b>Add Trip</b>
+        </h1>
+        <div className="mt-4"></div>
         <form onSubmit={(e) => handleSubmit.mutate(e)}>
           <div className="mb-3">
             <label className="form-label">

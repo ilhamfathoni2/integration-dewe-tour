@@ -22,8 +22,7 @@ function AddCountry() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]:
-        e.target.type === "file" ? e.target.files : e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -56,7 +55,7 @@ function AddCountry() {
         setMessage(alert);
       } else if (res.status === "400") {
         const alert = (
-          <Alert variant="danger" className="py-1">
+          <Alert variant="danger" className="p-3">
             Country already exist
           </Alert>
         );
@@ -77,6 +76,10 @@ function AddCountry() {
   return (
     <Container>
       <div className="mt-5 mb-3">
+        <h1>
+          <b>Add Country</b>
+        </h1>
+        <div className="mt-4"></div>
         {message && message}
         <form onSubmit={(e) => handleSubmit.mutate(e)}>
           <div className="mb-3">

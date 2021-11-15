@@ -5,13 +5,12 @@
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
-  -webkit-appearance: none;
+  border: 1px solid #ced4da !important;
   appearance: none;
   border-radius: 0.25rem;
+  box-shadow: none !important;
 }
 
 .mar-5 {
@@ -20,4 +19,19 @@
 
 .mb-10 {
   margin-bottom: 100px;
+}
+
+.input-group:focus {
+  box-shadow: none !important;
+  border: #ffaf00 2px solid !important;
+}
+
+.input-2:focus {
+  box-shadow: none !important;
+  border: #ffaf00 2px solid !important;
+}
+
+.form-select:focus {
+  box-shadow: none !important;
+  border: #ffaf00 2px solid !important;
 }
