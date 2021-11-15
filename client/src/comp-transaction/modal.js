@@ -38,7 +38,6 @@ function ModalTransaction({ item }) {
       };
 
       await api.patch("/update-incom/" + item.id, config);
-      setLgShow(false);
 
       history.go();
     } catch (error) {
@@ -67,7 +66,6 @@ function ModalTransaction({ item }) {
       };
 
       await api.patch("/update-incom/" + item.id, config);
-      setLgShow(false);
 
       history.go();
     } catch (error) {

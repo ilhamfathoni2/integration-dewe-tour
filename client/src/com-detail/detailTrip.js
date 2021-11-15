@@ -175,6 +175,8 @@ function Descriptions({ item }) {
                 );
               } else if (users.data.role === "admin") {
                 return <Button hidden></Button>;
+              } else if (users.data.role === "") {
+                return <Button hidden></Button>;
               } else {
                 return (
                   <Button variant="warning" onClick={() => handleBuy.mutate()}>

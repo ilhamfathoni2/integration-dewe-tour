@@ -13,6 +13,7 @@ import Profile from "./pages/profile";
 import IncomTransaction from "./pages/incomTransaction";
 import IncomTrip from "./pages/incomTrip";
 import Trip from "./pages/trip";
+import Country from "./pages/country";
 
 import { API } from "./config/api";
 
@@ -86,6 +87,7 @@ function App() {
           <Route exact path="/incom" component={IncomTransaction} />
           <Route exact path="/incom-trip" component={IncomTrip} />
           <Route exact path="/add-trip" component={Trip} />
+          <Route exact path="/add-country" component={Country} />
         </PrivateRoute>
       </Switch>
     </>

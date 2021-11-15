@@ -63,7 +63,7 @@ function History({ item }) {
                 <Image
                   className="inv"
                   alt="Upload Bukti Pembayaran"
-                  src={"http://localhost:5000/uploads/" + item.attachment}
+                  src={`http://localhost:5000/uploads/${item.attachment}`}
                 />
               </div>
             </div>

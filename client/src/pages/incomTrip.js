@@ -1,13 +1,13 @@
 import NavMain from "../component/navbar";
 import Footer from "../component/footer";
 import Product from "../product/product";
-import Btnaddtrip from "../comp-trip/btnAddTrip";
+import BtnAdd from "../comp-trip/btnAddCountry";
 
 function IncomTrip() {
   return (
     <>
       <NavMain />
-      <Btnaddtrip />
+      <BtnAdd />
       <Product />
       <Footer />
     </>

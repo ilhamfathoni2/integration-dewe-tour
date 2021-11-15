@@ -23,7 +23,6 @@ function Profile() {
     };
 
     const response = await api.get("/history", config);
-    console.log(response);
 
     return response.data;
   });
