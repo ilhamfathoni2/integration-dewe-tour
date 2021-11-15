@@ -7,7 +7,7 @@ import imgl2 from "../src-assets/hibiscus.png";
 import "./bassic.css";
 
 import { useMutation } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Register() {
   const [show, setShow] = useState(false);

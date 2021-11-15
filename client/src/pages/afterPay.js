@@ -1,6 +1,6 @@
-import NavMain from "../component/navbar";
-import Footer from "../component/footer";
-import PayWaiting from "../comp-pay/cPayWaiting";
+import NavMain from "../component/navbar.js";
+import Footer from "../component/footer.js";
+import PayWaiting from "../comp-pay/cPayWaiting.js";
 
 function AfterPay() {
   return (

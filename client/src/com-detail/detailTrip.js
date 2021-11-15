@@ -13,7 +13,7 @@ import convertRupiah from "rupiah-format";
 import moment from "moment";
 
 import { useMutation } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Descriptions({ item }) {
   let api = API();

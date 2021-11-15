@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { UserContext } from "../context/authContext";
+import { UserContext } from "../context/authContext.js";
 import { useHistory } from "react-router-dom";
 import { Button, Modal, Image, Form, Alert } from "react-bootstrap";
 import "./bassic.css";
@@ -9,7 +9,7 @@ import imgl2 from "../src-assets/hibiscus.png";
 
 import { useMutation } from "react-query";
 
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Login() {
   const [show, setShow] = useState(false);

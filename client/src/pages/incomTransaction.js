@@ -1,6 +1,6 @@
-import NavMain from "../component/navbar";
-import Footer from "../component/footer";
-import DataTransaction from "../comp-transaction/dataTransaction";
+import NavMain from "../component/navbar.js";
+import Footer from "../component/footer.js";
+import DataTransaction from "../comp-transaction/dataTransaction.js";
 
 function IncomTransaction() {
   const title = "Incom Transaction";

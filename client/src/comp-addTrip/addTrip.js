@@ -7,7 +7,7 @@ import "./trip.css";
 
 import { useMutation, useQuery } from "react-query";
 
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Addnewtrip() {
   const title = "Add Trip";

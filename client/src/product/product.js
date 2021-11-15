@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 import convertRupiah from "rupiah-format";
 
 import { Container, Card, Image } from "react-bootstrap";

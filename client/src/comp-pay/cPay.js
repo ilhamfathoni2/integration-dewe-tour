@@ -9,7 +9,7 @@ import convertRupiah from "rupiah-format";
 import moment from "moment";
 
 import { useMutation } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 import { useHistory } from "react-router";
 
 function ComPay({ item }) {

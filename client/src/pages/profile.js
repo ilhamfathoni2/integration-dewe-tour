@@ -1,11 +1,11 @@
-import NavMain from "../component/navbar";
-import Footer from "../component/footer";
-import Personal from "../comp-profile/personal";
-import History from "../comp-profile/history";
+import NavMain from "../component/navbar.js";
+import Footer from "../component/footer.js";
+import Personal from "../comp-profile/personal.js";
+import History from "../comp-profile/history.js";
 import { Container } from "react-bootstrap";
 
 import { useQuery } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Profile() {
   let api = API();

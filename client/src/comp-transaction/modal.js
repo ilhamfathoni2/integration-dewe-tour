@@ -7,7 +7,7 @@ import Icon from "../src-assets/IconPay.png";
 import convertRupiah from "rupiah-format";
 
 import { useMutation } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 import { useHistory } from "react-router";
 import moment from "moment";
 

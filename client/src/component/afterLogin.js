@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "../context/authContext";
+import { UserContext } from "../context/authContext.js";
 import "./bassic.css";
 
 import { Dropdown, Image } from "react-bootstrap";

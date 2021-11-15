@@ -1,9 +1,9 @@
-import NavMain from "../component/navbar";
-import Footer from "../component/footer";
-import ComPay from "../comp-pay/cPay";
+import NavMain from "../component/navbar.js";
+import Footer from "../component/footer.js";
+import ComPay from "../comp-pay/cPay.js";
 
 import { useQuery } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function Pay() {
   const title = "Payment";

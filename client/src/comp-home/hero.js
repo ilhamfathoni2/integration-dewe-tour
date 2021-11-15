@@ -10,7 +10,7 @@ import "./hero.css";
 
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 import convertRupiah from "rupiah-format";
 
 import "../product/product.css";

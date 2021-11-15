@@ -6,7 +6,7 @@ import "./trip.css";
 
 import { useMutation } from "react-query";
 
-import { API } from "../config/api";
+import { API } from "../config/api.js";
 
 function AddCountry() {
   const title = "Add Country";
