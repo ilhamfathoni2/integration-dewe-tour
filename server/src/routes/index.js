@@ -17,6 +17,7 @@ const {
   getAllUsers,
   checkAuth,
   user,
+  updateUser,
 } = require("../controllers/auth");
 const {
   getTrips,
@@ -48,6 +49,7 @@ router.get("/users", auth, adminOnly, getAllUsers);
 router.delete("/users/:id", auth, adminOnly, deleteUser);
 router.get("/check-auth", auth, checkAuth);
 router.get("/user-data", auth, user);
+// router.patch("/update-user", auth, uploadFile("image"), updateUser);
 
 router.post("/country", auth, adminOnly, addCountrys);
 router.get("/country", getAllCountry);

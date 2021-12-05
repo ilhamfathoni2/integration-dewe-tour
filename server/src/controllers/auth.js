@@ -280,3 +280,38 @@ exports.user = async (req, res) => {
     });
   }
 };
+
+exports.updateUser = async (req, res) => {
+  try {
+    await user.update(
+      {
+        avatar: req.files.avatar[0].filename,
+      },
+
+      {
+        where: {
+          id: req.user.id,
+        },
+      }
+    );
+    const data = await user.findOne({
+      where: {
+        id: req.user.id,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
+    });
+    res.send({
+      status: "success",
+      message: "Update success",
+      datas: data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
