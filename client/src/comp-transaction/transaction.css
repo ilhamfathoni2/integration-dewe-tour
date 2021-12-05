@@ -12,6 +12,12 @@
 .mt-10 {
   margin-top: 155px;
 }
+.cards {
+  background-color: white;
+  border: solid 1px #d4d4d4;
+  border-radius: 5px;
+  width: 25%;
+}
 
 .btn-successt {
   margin-left: 15px;

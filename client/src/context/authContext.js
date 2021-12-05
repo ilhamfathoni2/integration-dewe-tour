@@ -3,11 +3,12 @@ import { createContext, useReducer } from "react";
 export const UserContext = createContext();
 
 const dataUser = {
-  data: {
+  isLogin: false,
+  user: {
     fullname: "",
-    email: "@",
-    phone: "#",
-    address: "#",
+    email: "",
+    phone: "",
+    address: "",
     role: "",
   },
 };
@@ -32,11 +33,10 @@ const reducer = (state, action) => {
       };
     case "AUTH_ERROR":
     case "LOGOUT":
-      localStorage.removeItem("token");
-      localStorage.setItem("user", userOf);
+      localStorage.setItem("token", userOf);
       return {
         isLogin: false,
-        user: {},
+        user: { fullname: "", email: "", phone: "", address: "", role: "" },
       };
     default:
       throw new Error();

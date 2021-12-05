@@ -15,16 +15,18 @@ import Trip from "./pages/trip";
 import Country from "./pages/country";
 
 import { API } from "./config/api";
+import Dashboard from "./dashboard/dash";
 
 function PrivateRoute({ children, ...rest }) {
-  let usersData = JSON.parse(localStorage.getItem("user"));
+  const [state] = useContext(UserContext);
+
   let history = useHistory();
 
   return (
     <Route
       {...rest}
       render={() => {
-        if (usersData.data.role === "admin") {
+        if (state.user.role === "admin") {
           return children;
         } else {
           return history.push("/");
@@ -36,7 +38,7 @@ function PrivateRoute({ children, ...rest }) {
 
 function App() {
   let api = API();
-  const [, dispatch] = useContext(UserContext);
+  const [state, dispatch] = useContext(UserContext);
 
   const checkUser = async () => {
     try {
@@ -72,7 +74,7 @@ function App() {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [state]);
 
   return (
     <>
@@ -86,6 +88,7 @@ function App() {
           <Route exact path="/incom-trip" component={IncomTrip} />
           <Route exact path="/add-trip" component={Trip} />
           <Route exact path="/add-country" component={Country} />
+          <Route exact path="/dashboard" component={Dashboard} />
         </PrivateRoute>
       </Switch>
     </>

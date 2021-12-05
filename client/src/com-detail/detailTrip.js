@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-
 import { Container, Image, Button, Form } from "react-bootstrap";
 import "./detail.css";
 import iconHotel from "../src-assets/hotel.png";
@@ -14,11 +13,12 @@ import moment from "moment";
 
 import { useMutation } from "react-query";
 import { API } from "../config/api";
+import { UserContext } from "../context/authContext";
 
 function Descriptions({ item }) {
   let api = API();
   let history = useHistory();
-  let users = JSON.parse(localStorage.getItem("user"));
+  const [state] = useContext(UserContext);
 
   const [count, setCount] = useState(1);
 
@@ -173,9 +173,9 @@ function Descriptions({ item }) {
                     </span>
                   </h3>
                 );
-              } else if (users.data.role === "admin") {
+              } else if (state.user.role === "admin") {
                 return <Button hidden></Button>;
-              } else if (users.data.role === "") {
+              } else if (state.user.role === "") {
                 return <Button hidden></Button>;
               } else {
                 return (

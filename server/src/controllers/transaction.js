@@ -1,5 +1,6 @@
 const { trip, user, transaction } = require("../../models");
 const Joi = require("joi");
+const path = "http://localhost:5000/uploads/";
 
 exports.getTransactions = async (req, res) => {
   try {
@@ -68,12 +69,38 @@ exports.getTrscHistory = async (req, res) => {
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
+      order: [["id", "DESC"]],
       token,
     });
 
+    const allData = data.map((item) => ({
+      id: item.id,
+      counterQty: item.counterQty,
+      total: item.total,
+      status: item.status,
+      attachment: path + item.attachment,
+      tripId: item.tripId,
+      userId: item.userId,
+      country: item.country,
+      title: item.trip.title,
+      accomodation: item.trip.accomodation,
+      transportation: item.trip.transportation,
+      eat: item.trip.eat,
+      day: item.trip.day,
+      night: item.trip.night,
+      dateTrip: item.trip.dateTrip,
+      price: item.trip.price,
+      quota: item.trip.quota,
+      fullname: item.user.fullname,
+      email: item.user.email,
+      phone: item.user.phone,
+      address: item.user.address,
+      role: item.user.role,
+    }));
+
     res.send({
       status: "success...",
-      data,
+      data: allData,
     });
   } catch (error) {
     console.log(error);
@@ -89,6 +116,7 @@ exports.incomTrsc = async (req, res) => {
     const { idUser } = req.user;
 
     const data = await transaction.findAll({
+      order: [["id", "DESC"]],
       include: [
         {
           model: trip,
@@ -112,6 +140,57 @@ exports.incomTrsc = async (req, res) => {
     res.send({
       status: "success...",
       data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.profit = async (req, res) => {
+  try {
+    const datas = await transaction.findAll({
+      order: [["id", "DESC"]],
+      include: [
+        {
+          model: trip,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: user,
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
+    const totals = await transaction.sum("total", {
+      where: { status: "Approve" },
+    });
+
+    const cancel = await transaction.sum("total", {
+      where: { status: "Cancel" },
+    });
+
+    const waiting = await transaction.sum("total", {
+      where: { status: "Waiting Approve" },
+    });
+
+    res.send({
+      status: "success",
+      datas,
+      totals,
+      cancel,
+      waiting,
     });
   } catch (error) {
     console.log(error);

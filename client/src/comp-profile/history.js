@@ -28,13 +28,13 @@ function History({ item }) {
             </div>
             <div className="d-flex justify-content-end p-0 m-0">
               <h6 className="card-text">
-                <b>{moment(item.trip.dateTrip).format("DD MMMM YYYY")}</b>
+                <b>{moment(item.dateTrip).format("DD MMMM YYYY")}</b>
               </h6>
             </div>
             <div className="d-flex justify-content-between mt-4">
               <div className="card-body p-0 m-0">
                 <h4>
-                  <b>{item.trip.title}</b>
+                  <b>{item.title}</b>
                 </h4>
                 <p>{item.country}</p>
                 <span className={statusPay}>{item.status}</span>
@@ -43,27 +43,27 @@ function History({ item }) {
                 <h6>
                   <b>Date Trip</b>
                 </h6>
-                <p>{moment(item.trip.dateTrip).format("DD MMMM YYYY")}</p>
+                <p>{moment(item.dateTrip).format("DD MMMM YYYY")}</p>
                 <h6>
                   <b>Accommodation</b>
                 </h6>
-                <p>{item.trip.accomodation}</p>
+                <p>{item.accomodation}</p>
               </div>
               <div className="card-body d-flex flex-column p-0 m-0">
                 <h6>
                   <b>Duration</b>
                 </h6>
-                <p>{item.trip.day}</p>
+                <p>{item.day}</p>
                 <h6>
                   <b>Transportation</b>
                 </h6>
-                <p>{item.trip.transportation}</p>
+                <p>{item.transportation}</p>
               </div>
               <div className="card-body d-flex align-items-end flex-column p-0 m-0">
                 <Image
                   className="inv"
                   alt="Upload Bukti Pembayaran"
-                  src={`http://localhost:5000/uploads/${item.attachment}`}
+                  src={item.attachment}
                 />
               </div>
             </div>
@@ -77,9 +77,9 @@ function History({ item }) {
               </thead>
               <tbody>
                 <tr>
-                  <td>{item.user.fullname}</td>
-                  <td>{item.user.address}</td>
-                  <td>{item.user.phone}</td>
+                  <td>{item.fullname}</td>
+                  <td>{item.address}</td>
+                  <td>{item.phone}</td>
                   <td>
                     <b className="mr4">Qty :</b>
                     <b>{item.counterQty}</b>

@@ -13,9 +13,9 @@ import tripIcon from "../src-assets/journey1.png";
 import { useHistory } from "react-router";
 
 function AfterLogin() {
-  let users = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
-  const [, dispatch] = useContext(UserContext);
+  const [state, dispatch] = useContext(UserContext);
+  // let userData = JSON.parse(localStorage.getItem("token"));
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ function AfterLogin() {
     history.push("/");
   };
 
-  if (users.data.role === "admin") {
+  if (state.user.role === "admin") {
     return (
       <>
         <Dropdown align="end">
@@ -50,6 +50,12 @@ function AfterLogin() {
               <Link to="/incom">
                 <Image className="icon-after-login" src={pay} />
                 <b className="b-user-log">Incoming Trip</b>
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link to="/dashboard">
+                <Image className="icon-after-login" src={pay} />
+                <b className="b-user-log">Dashboard</b>
               </Link>
             </Dropdown.Item>
             <hr />

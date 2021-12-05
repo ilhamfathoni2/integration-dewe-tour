@@ -65,9 +65,6 @@ function Login() {
           payload: response.data,
         });
 
-        let userData = JSON.stringify(response);
-        localStorage.setItem("user", userData);
-
         // Status check
         if (response.data.role === "admin") {
           history.push("/incom");

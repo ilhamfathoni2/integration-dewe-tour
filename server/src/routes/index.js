@@ -40,14 +40,16 @@ const {
   getTrscHistory,
   incomTrsc,
   updateIncom,
+  profit,
 } = require("../controllers/transaction");
 
 // Route
+router.get("/check-auth", checkAuth);
+
 router.post("/register", register);
 router.post("/login", login);
 router.get("/users", auth, adminOnly, getAllUsers);
 router.delete("/users/:id", auth, adminOnly, deleteUser);
-router.get("/check-auth", auth, checkAuth);
 router.get("/user-data", auth, user);
 // router.patch("/update-user", auth, uploadFile("image"), updateUser);
 
@@ -66,6 +68,7 @@ router.delete("/trip/:id", auth, adminOnly, deleteTrip);
 router.post("/transaction", auth, addTransaction);
 router.get("/transaction", auth, getTransactions);
 router.get("/transaction/:id", auth, getTransactionId);
+router.get("/profit", auth, adminOnly, profit);
 router.patch(
   "/transaction/:id",
   auth,

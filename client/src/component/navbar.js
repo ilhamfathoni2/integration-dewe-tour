@@ -1,4 +1,4 @@
-// import { useContext } from "react";
+import { useContext } from "react";
 import { Container, Navbar, Image, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../src-assets/Icon.png";
@@ -7,14 +7,12 @@ import "./bassic.css";
 import Login from "./login";
 import Register from "./register";
 
-// import { UserContext } from "../context/authContext";
+import { UserContext } from "../context/authContext";
 
 function NavMain() {
-  let users = JSON.parse(localStorage.getItem("user"));
+  const [state] = useContext(UserContext);
 
-  // const [state] = useContext(UserContext);
-
-  if (users.data.fullname === "") {
+  if (state.isLogin === false) {
     return (
       <>
         <div className="bg-hero-nav"></div>
