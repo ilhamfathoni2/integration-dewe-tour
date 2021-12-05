@@ -8,7 +8,6 @@ import "./App.css";
 import HomePage from "./pages/home";
 import Detail from "./pages/detail";
 import Pay from "./pages/pay";
-import AfterPay from "./pages/afterPay";
 import Profile from "./pages/profile";
 import IncomTransaction from "./pages/incomTransaction";
 import IncomTrip from "./pages/incomTrip";
@@ -81,7 +80,6 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/detail/:id" component={Detail} />
         <Route exact path="/payment" component={Pay} />
-        <Route exact path="/status-payment" component={AfterPay} />
         <Route exact path="/profile" component={Profile} />
         <PrivateRoute>
           <Route exact path="/incom" component={IncomTransaction} />

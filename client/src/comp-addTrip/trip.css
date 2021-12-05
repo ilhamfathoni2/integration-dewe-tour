@@ -35,3 +35,18 @@
   box-shadow: none !important;
   border: #ffaf00 2px solid !important;
 }
+
+.btn-secondary {
+  background-color: #b3b3b3 !important;
+  border: none;
+}
+
+.back {
+  position: absolute;
+  width: 8px;
+  margin: 4px 0;
+}
+
+.text-btn {
+  margin-left: 18px;
+}

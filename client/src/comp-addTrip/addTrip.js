@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 
 import Button from "@restart/ui/esm/Button";
-import { Container } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 import "./trip.css";
+import { Link } from "react-router-dom";
+import btnBack from "../src-assets/back.png";
 
 import { useMutation, useQuery } from "react-query";
 
@@ -103,7 +105,13 @@ function Addnewtrip() {
 
   return (
     <Container>
-      <div className="mt-5">
+      <div className="mt-4">
+        <Link to="/incom-trip">
+          <Button className="btn btn-secondary mb-5 add-trip">
+            <Image src={btnBack} className="back" />{" "}
+            <b className="text-btn">Back</b>
+          </Button>
+        </Link>
         <h1>
           <b>Add Trip</b>
         </h1>

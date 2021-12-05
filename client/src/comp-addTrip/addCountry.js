@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
 import Button from "@restart/ui/esm/Button";
-import { Container, Alert } from "react-bootstrap";
+import { Container, Alert, Image } from "react-bootstrap";
 import "./trip.css";
+import { Link } from "react-router-dom";
+import btnBack from "../src-assets/back.png";
 
 import { useMutation } from "react-query";
 
@@ -75,7 +77,13 @@ function AddCountry() {
 
   return (
     <Container>
-      <div className="mt-5 mb-3">
+      <div className="mt-4">
+        <Link to="/incom-trip">
+          <Button className="btn btn-secondary mb-5 add-trip">
+            <Image src={btnBack} className="back" />{" "}
+            <b className="text-btn">Back</b>
+          </Button>
+        </Link>
         <h1>
           <b>Add Country</b>
         </h1>
