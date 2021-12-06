@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { UserContext } from "./context/authContext";
 
@@ -18,7 +18,7 @@ import { API } from "./config/api";
 import Dashboard from "./dashboard/dash";
 
 function PrivateRoute({ children, ...rest }) {
-  const [state] = useContext(UserContext);
+  const { state } = useContext(UserContext);
 
   let history = useHistory();
 
@@ -38,7 +38,8 @@ function PrivateRoute({ children, ...rest }) {
 
 function App() {
   let api = API();
-  const [, dispatch] = useContext(UserContext);
+
+  const { state, dispatch } = useContext(UserContext);
 
   const checkUser = async () => {
     try {

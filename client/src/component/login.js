@@ -19,7 +19,7 @@ function Login() {
   let history = useHistory();
   let api = API();
 
-  const [, dispatch] = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
 
   const [message, setMessage] = useState(null);
   const [form, setForm] = useState({
