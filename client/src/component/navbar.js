@@ -10,7 +10,7 @@ import Register from "./register";
 import { UserContext } from "../context/authContext";
 
 function NavMain() {
-  const [state] = useContext(UserContext);
+  const { state } = useContext(UserContext);
 
   if (state.isLogin === false) {
     return (

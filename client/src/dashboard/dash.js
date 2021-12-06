@@ -15,9 +15,11 @@ function Dashboard() {
   const title = "Profit";
   document.title = "Dewe Tour | " + title;
 
+  const [admin, setAdmin] = useState([]);
+
   const [cancel, setCancel] = useState([]);
   const [waiting, setWaiting] = useState([]);
-  const [admin, setAdmin] = useState([]);
+
   const [approve, setApprove] = useState([]);
   const [tcancel, setTcancel] = useState([]);
   const [twaiting, setTwaiting] = useState([]);

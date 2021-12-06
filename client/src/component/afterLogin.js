@@ -15,7 +15,7 @@ import { useHistory } from "react-router";
 
 function AfterLogin() {
   const history = useHistory();
-  const [state, dispatch] = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
 
   const handleLogout = (e) => {
     e.preventDefault();
