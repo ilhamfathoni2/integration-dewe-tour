@@ -1,0 +1,19 @@
+.mrg-5 {
+  margin-right: 55px;
+}
+
+.card-custom {
+  width: 20%;
+}
+
+.card-saldo {
+  width: 30%;
+}
+
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.096) !important;
+}
+
+.progress {
+  height: 1.8rem !important;
+}

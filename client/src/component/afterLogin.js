@@ -9,13 +9,13 @@ import user2 from "../src-assets/user2.png";
 import pay from "../src-assets/bill1.png";
 import logoutIcon from "../src-assets/logout1.png";
 import tripIcon from "../src-assets/journey1.png";
+import dasboard from "../src-assets/Dashboard.png";
 
 import { useHistory } from "react-router";
 
 function AfterLogin() {
   const history = useHistory();
   const [state, dispatch] = useContext(UserContext);
-  // let userData = JSON.parse(localStorage.getItem("token"));
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ function AfterLogin() {
             </Dropdown.Item>
             <Dropdown.Item>
               <Link to="/dashboard">
-                <Image className="icon-after-login" src={pay} />
+                <Image className="icon-after-login" src={dasboard} />
                 <b className="b-user-log">Dashboard</b>
               </Link>
             </Dropdown.Item>

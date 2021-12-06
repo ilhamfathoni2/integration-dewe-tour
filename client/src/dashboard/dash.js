@@ -1,4 +1,4 @@
-import { Table, Container } from "react-bootstrap";
+import { Container, ProgressBar } from "react-bootstrap";
 import "./dash.css";
 import { useState } from "react";
 
@@ -14,7 +14,13 @@ function Dashboard() {
 
   const title = "Profit";
   document.title = "Dewe Tour | " + title;
-  const [dataProfit, setProfit] = useState([]);
+
+  const [cancel, setCancel] = useState([]);
+  const [waiting, setWaiting] = useState([]);
+  const [admin, setAdmin] = useState([]);
+  const [approve, setApprove] = useState([]);
+  const [tcancel, setTcancel] = useState([]);
+  const [twaiting, setTwaiting] = useState([]);
 
   const { data: profits } = useQuery("profits", async () => {
     const config = {
@@ -25,45 +31,102 @@ function Dashboard() {
     };
 
     const response = await api.get("/profit", config);
-    console.log(response);
-    setProfit(response.totals);
+    setCancel(response.cancel);
+    setWaiting(response.waiting);
+    setApprove(response.approve.count);
+    setTcancel(response.totalCancel.count);
+    setTwaiting(response.totalWaiting.count);
+    return response.totals;
+  });
 
-    return response.datas;
+  const { data: users } = useQuery("users", async () => {
+    const config = {
+      method: "GET",
+      headers: {
+        Authorization: "Basic " + localStorage.token,
+      },
+    };
+
+    const response = await api.get("/user-data", config);
+    setAdmin(response.admin.count);
+    return response.datas.count;
   });
 
   return (
     <>
       <NavMain />
       <Container>
-        <h5 className="card-title mb-3 mt-5">Profit</h5>
-        <div className="card mb-5">
-          <div className="card-body">
-            <Table striped bordered hover>
-              <thead>
-                <tr className="text-center">
-                  <th>No</th>
-                  <th>Trip</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {profits?.map((item, index) => (
-                  <tr>
-                    <td>{index + 1}</td>
-                    <td>{item.tripId}</td>
-                    <td>{item.total}</td>
-                  </tr>
-                ))}
-                <tr>
-                  <td className="text-center">
-                    <b>Profits</b>
-                  </td>
-                  <td colSpan="3" className="text-success">
-                    <b>{"  " + convertRupiah.convert(dataProfit)}</b>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+        <h5 className="card-title mb-4 mt-5">Dashboard</h5>
+        <h5 className="text-secondary mb-3 mt-5">
+          <b>Saldo</b>
+        </h5>
+        <div className="d-flex justify-content-between">
+          <div className="shadow p-4 bg-body rounded card-saldo">
+            <b className="mb-4 mt-3 text-secondary">Income </b>
+            <p className="mb-4 mt-2 text-success">{approve} Transaction</p>
+            <h5 className="mb-0 mt-2">
+              <b className="text-success mb-0">
+                {convertRupiah.convert(profits)}
+              </b>
+            </h5>
+          </div>
+          <div className="shadow p-4 bg-body rounded card-saldo">
+            <b className="mb-4 mt-3 text-secondary">Waiting Approve</b>
+            <p className="mb-4 mt-2 text-warning">{twaiting} Transaction</p>
+            <h5 className="mb-0 mt-2">
+              <b className="text-warning mb-0">
+                {convertRupiah.convert(waiting)}
+              </b>
+            </h5>
+          </div>
+          <div className="shadow p-4 bg-body rounded card-saldo">
+            <b className="mb-4 mt-3 text-secondary">Cancel</b>
+            <p className="mb-4 mt-2 text-danger">{tcancel} Transaction</p>
+            <h5 className="mb-0 mt-2">
+              <b className="text-danger mb-0">
+                {convertRupiah.convert(cancel)}
+              </b>
+            </h5>
+          </div>
+        </div>
+        <div className="shadow p-4 bg-body rounded mt-5 mb-4">
+          <label className="text-secondary">Income</label>
+          <ProgressBar
+            className="mb-3"
+            variant="success"
+            now={approve}
+            label={`${approve}`}
+          />
+          <label className="text-secondary">Waiting Approve</label>
+          <ProgressBar
+            className="mb-3"
+            variant="warning"
+            now={twaiting}
+            label={`${twaiting}`}
+          />
+          <label className="text-secondary">Cancel</label>
+          <ProgressBar
+            className="mb-3"
+            variant="danger"
+            now={tcancel}
+            label={`${tcancel}`}
+          />
+        </div>
+        <h5 className="text-secondary mb-3 mt-5">
+          <b>Total User</b>
+        </h5>
+        <div className="d-flex">
+          <div className="shadow p-4 bg-body rounded card-custom mrg-5">
+            <b className="mb-4 mt-3 text-secondary">Customer</b>
+            <h5 className="mb-0 mt-2">
+              <b className="text-success mb-0">{users}</b>
+            </h5>
+          </div>
+          <div className="shadow p-4 bg-body rounded card-custom">
+            <b className="mb-4 mt-3 text-secondary">Admin</b>
+            <h5 className="mb-0 mt-2">
+              <b className="text-danger mb-0">{admin}</b>
+            </h5>
           </div>
         </div>
         <div className="mt-10"></div>

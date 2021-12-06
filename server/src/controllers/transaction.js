@@ -177,12 +177,33 @@ exports.profit = async (req, res) => {
       where: { status: "Approve" },
     });
 
+    const approve = await transaction.findAndCountAll({
+      where: { status: "Approve" },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
     const cancel = await transaction.sum("total", {
       where: { status: "Cancel" },
     });
 
+    const totalCancel = await transaction.findAndCountAll({
+      where: { status: "Cancel" },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
+    });
+
     const waiting = await transaction.sum("total", {
       where: { status: "Waiting Approve" },
+    });
+
+    const totalWaiting = await transaction.findAndCountAll({
+      where: { status: "Waiting Approve" },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
     });
 
     res.send({
@@ -191,6 +212,9 @@ exports.profit = async (req, res) => {
       totals,
       cancel,
       waiting,
+      approve,
+      totalCancel,
+      totalWaiting,
     });
   } catch (error) {
     console.log(error);

@@ -216,12 +216,6 @@ exports.checkAuth = async (req, res) => {
       },
     });
 
-    if (!dataUser) {
-      return res.status(404).send({
-        status: "failed",
-      });
-    }
-
     res.send({
       status: "success",
       data: {
@@ -244,33 +238,28 @@ exports.checkAuth = async (req, res) => {
 
 exports.user = async (req, res) => {
   try {
-    const dataUser = await user.findOne({
+    const datas = await user.findAndCountAll({
       where: {
-        id: req.user.id,
+        role: "user",
       },
       attributes: {
         exclude: ["createdAt", "updatedAt", "password"],
       },
     });
 
-    if (!dataUser) {
-      return res.status(404).send({
-        status: "failed",
-      });
-    }
+    const admin = await user.findAndCountAll({
+      where: {
+        role: "admin",
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
+    });
 
     res.send({
       status: "success",
-      data: [
-        {
-          id: dataUser.id,
-          fullname: dataUser.fullname,
-          email: dataUser.email,
-          phone: dataUser.phone,
-          address: dataUser.address,
-          role: dataUser.role,
-        },
-      ],
+      datas,
+      admin,
     });
   } catch (error) {
     console.log(error);

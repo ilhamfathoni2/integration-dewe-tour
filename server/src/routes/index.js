@@ -44,7 +44,7 @@ const {
 } = require("../controllers/transaction");
 
 // Route
-router.get("/check-auth", checkAuth);
+router.get("/check-auth", auth, checkAuth);
 
 router.post("/register", register);
 router.post("/login", login);

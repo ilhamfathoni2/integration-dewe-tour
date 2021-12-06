@@ -38,7 +38,7 @@ function PrivateRoute({ children, ...rest }) {
 
 function App() {
   let api = API();
-  const [state, dispatch] = useContext(UserContext);
+  const [, dispatch] = useContext(UserContext);
 
   const checkUser = async () => {
     try {
@@ -49,20 +49,17 @@ function App() {
         },
       };
       const response = await api.get("/check-auth", config);
+      console.log("res", response);
 
-      // If the token incorrect
-      if (response.status === "failed") {
+      if (response.message === "invalid token") {
         return dispatch({
           type: "AUTH_ERROR",
         });
       }
 
-      // // Get user data
-      let payload = response.data.user;
-      // // Get token from local storage
+      let payload = response.data.data;
       payload.token = localStorage.token;
 
-      // // Send data to useContext
       dispatch({
         type: "USER_SUCCESS",
         payload,
@@ -74,7 +71,7 @@ function App() {
 
   useEffect(() => {
     checkUser();
-  }, [state]);
+  }, []);
 
   return (
     <>
