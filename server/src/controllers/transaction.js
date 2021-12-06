@@ -152,27 +152,6 @@ exports.incomTrsc = async (req, res) => {
 
 exports.profit = async (req, res) => {
   try {
-    const datas = await transaction.findAll({
-      order: [["id", "DESC"]],
-      include: [
-        {
-          model: trip,
-          attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
-        },
-        {
-          model: user,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "password"],
-          },
-        },
-      ],
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
-
     const totals = await transaction.sum("total", {
       where: { status: "Approve" },
     });
@@ -208,7 +187,6 @@ exports.profit = async (req, res) => {
 
     res.send({
       status: "success",
-      datas,
       totals,
       cancel,
       waiting,
