@@ -63,7 +63,6 @@ function Dashboard() {
         <div className="d-flex justify-content-between">
           <div className="shadow p-4 bg-body rounded card-saldo">
             <b className="mb-4 mt-3 text-secondary">Income </b>
-            <p className="mb-4 mt-2 text-success">{approve} Transaction</p>
             <h5 className="mb-0 mt-2">
               <b className="text-success mb-0">
                 {convertRupiah.convert(profits)}
@@ -72,7 +71,6 @@ function Dashboard() {
           </div>
           <div className="shadow p-4 bg-body rounded card-saldo">
             <b className="mb-4 mt-3 text-secondary">Waiting Approve</b>
-            <p className="mb-4 mt-2 text-warning">{twaiting} Transaction</p>
             <h5 className="mb-0 mt-2">
               <b className="text-warning mb-0">
                 {convertRupiah.convert(waiting)}
@@ -81,7 +79,6 @@ function Dashboard() {
           </div>
           <div className="shadow p-4 bg-body rounded card-saldo">
             <b className="mb-4 mt-3 text-secondary">Cancel</b>
-            <p className="mb-4 mt-2 text-danger">{tcancel} Transaction</p>
             <h5 className="mb-0 mt-2">
               <b className="text-danger mb-0">
                 {convertRupiah.convert(cancel)}
@@ -95,7 +92,7 @@ function Dashboard() {
             className="mb-3"
             variant="success"
             now={approve}
-            label={`${approve}`}
+            label={`${approve} pcs`}
           />
           <label className="text-secondary">Waiting Approve</label>
           <ProgressBar
