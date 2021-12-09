@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import { Button, Modal, Form, Image, Alert } from "react-bootstrap";
 
 import imgL1 from "../src-assets/palm.png";
 import imgl2 from "../src-assets/hibiscus.png";
 import "./bassic.css";
-
+import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
+import { UserContext } from "../context/authContext";
 
 function Register() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [, dispatch] = useContext(UserContext);
+  let history = useHistory();
 
   let api = API();
 
@@ -53,28 +57,23 @@ function Register() {
       // Insert data user to database
       const response = await api.post("/register", config);
 
-      console.log(response);
-
       // Notification
       if (response.status === "success...") {
-        const alert = (
-          <Alert variant="success" className="py-1">
-            Success
-          </Alert>
-        );
-        setMessage(alert);
-        setForm({
-          fullname: "",
-          email: "",
-          password: "",
-          phone: "",
-          address: "",
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: response.data,
         });
-        setShow(false);
+
+        // Status check
+        if (response.data.role === "admin") {
+          history.push("/incom");
+        } else {
+          history.push("/");
+        }
       } else {
         const alert = (
           <Alert variant="danger" className="py-1">
-            Failed
+            {response.message}
           </Alert>
         );
         setMessage(alert);
@@ -82,7 +81,7 @@ function Register() {
     } catch (error) {
       const alert = (
         <Alert variant="danger" className="py-1">
-          Failed
+          Field
         </Alert>
       );
       setMessage(alert);
@@ -119,7 +118,7 @@ function Register() {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
-                type="email"
+                type="text"
                 value={email}
                 name="email"
                 onChange={handleChange}
