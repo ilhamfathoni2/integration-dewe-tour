@@ -18,7 +18,7 @@ import { API } from "./config/api";
 import Dashboard from "./dashboard/dash";
 
 function PrivateRoute({ children, ...rest }) {
-  const [state] = useContext(UserContext);
+  const isRole = localStorage.getItem("role");
 
   let history = useHistory();
 
@@ -26,7 +26,7 @@ function PrivateRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={() => {
-        if (state.user.role === "admin") {
+        if (isRole === "admin") {
           return children;
         } else {
           return history.push("/");
@@ -49,7 +49,6 @@ function App() {
         },
       };
       const response = await api.get("/check-auth", config);
-      console.log("res", response);
 
       if (response.message === "invalid token") {
         return dispatch({

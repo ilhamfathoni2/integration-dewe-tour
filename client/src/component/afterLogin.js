@@ -15,7 +15,8 @@ import { useHistory } from "react-router";
 
 function AfterLogin() {
   const history = useHistory();
-  const [state, dispatch] = useContext(UserContext);
+  const [, dispatch] = useContext(UserContext);
+  const isRole = localStorage.getItem("role");
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ function AfterLogin() {
     history.push("/");
   };
 
-  if (state.user.role === "admin") {
+  if (isRole === "admin") {
     return (
       <>
         <Dropdown align="end">

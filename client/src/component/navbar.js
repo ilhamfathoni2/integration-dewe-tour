@@ -11,8 +11,9 @@ import { UserContext } from "../context/authContext";
 
 function NavMain() {
   const [state] = useContext(UserContext);
+  const isLogIn = localStorage.getItem("token");
 
-  if (state.isLogin === false) {
+  if (!isLogIn) {
     return (
       <>
         <div className="bg-hero-nav"></div>

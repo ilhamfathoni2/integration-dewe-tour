@@ -216,6 +216,11 @@ exports.checkAuth = async (req, res) => {
       },
     });
 
+    const token = jwt.sign(
+      { id: dataUser.id, email: dataUser.email, role: dataUser.role },
+      process.env.TOKEN_KEY
+    );
+
     res.send({
       status: "success",
       data: {
@@ -225,6 +230,7 @@ exports.checkAuth = async (req, res) => {
         phone: dataUser.phone,
         address: dataUser.address,
         role: dataUser.role,
+        token,
       },
     });
   } catch (error) {
@@ -260,6 +266,39 @@ exports.user = async (req, res) => {
       status: "success",
       datas,
       admin,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status({
+      status: "failed",
+      message: "Server Error",
+    });
+  }
+};
+
+exports.userProfile = async (req, res) => {
+  try {
+    const data = await user.findOne({
+      where: {
+        id: req.user.id,
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
+    });
+
+    res.send({
+      status: "success",
+      datas: [
+        {
+          id: data.id,
+          fullname: data.fullname,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          role: data.role,
+        },
+      ],
     });
   } catch (error) {
     console.log(error);

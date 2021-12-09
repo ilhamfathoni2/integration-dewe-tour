@@ -150,34 +150,13 @@ exports.incomTrsc = async (req, res) => {
   }
 };
 
-exports.profit = async (req, res) => {
+exports.saldo = async (req, res) => {
   try {
-    const datas = await transaction.findAll({
-      order: [["id", "DESC"]],
-      include: [
-        {
-          model: trip,
-          attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
-        },
-        {
-          model: user,
-          attributes: {
-            exclude: ["createdAt", "updatedAt", "password"],
-          },
-        },
-      ],
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
-
-    const totals = await transaction.sum("total", {
+    const incom = await transaction.sum("total", {
       where: { status: "Approve" },
     });
 
-    const approve = await transaction.findAndCountAll({
+    const totalApprove = await transaction.findAndCountAll({
       where: { status: "Approve" },
       attributes: {
         exclude: ["createdAt", "updatedAt"],
@@ -208,19 +187,18 @@ exports.profit = async (req, res) => {
 
     res.send({
       status: "success",
-      datas,
-      totals,
+      incom,
       cancel,
       waiting,
-      approve,
+      totalApprove,
       totalCancel,
       totalWaiting,
     });
   } catch (error) {
     console.log(error);
     res.send({
-      status: "failed",
-      message: "Server Error",
+      status: "Field",
+      msg: "Server error",
     });
   }
 };

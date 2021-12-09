@@ -17,7 +17,7 @@ const userOf = JSON.stringify(dataUser);
 
 const initialState = {
   isLogin: false,
-  user: {},
+  user: { fullname: "", email: "", phone: "", address: "", role: "" },
 };
 
 const reducer = (state, action) => {
@@ -27,16 +27,18 @@ const reducer = (state, action) => {
     case "USER_SUCCESS":
     case "LOGIN_SUCCESS":
       localStorage.setItem("token", payload.token);
+      localStorage.setItem("role", payload.role);
       return {
         isLogin: true,
         user: payload,
       };
     case "AUTH_ERROR":
     case "LOGOUT":
-      localStorage.setItem("token", userOf);
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
       return {
         isLogin: false,
-        user: { fullname: "", email: "", phone: "", address: "", role: "" },
+        user: {},
       };
     default:
       throw new Error();

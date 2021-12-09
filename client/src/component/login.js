@@ -55,8 +55,6 @@ function Login() {
       // Insert data for login process
       const response = await api.post("/login", config);
 
-      console.log(response);
-
       // Checking process
       if (response.status === "success...") {
         // Send data to useContext

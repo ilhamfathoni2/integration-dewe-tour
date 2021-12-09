@@ -18,6 +18,7 @@ const {
   checkAuth,
   user,
   updateUser,
+  userProfile,
 } = require("../controllers/auth");
 const {
   getTrips,
@@ -40,11 +41,13 @@ const {
   getTrscHistory,
   incomTrsc,
   updateIncom,
-  profit,
+  saldo,
 } = require("../controllers/transaction");
 
 // Route
 router.get("/check-auth", auth, checkAuth);
+
+router.get("/profile", auth, userProfile);
 
 router.post("/register", register);
 router.post("/login", login);
@@ -68,7 +71,7 @@ router.delete("/trip/:id", auth, adminOnly, deleteTrip);
 router.post("/transaction", auth, addTransaction);
 router.get("/transaction", auth, getTransactions);
 router.get("/transaction/:id", auth, getTransactionId);
-router.get("/profit", auth, adminOnly, profit);
+router.get("/saldo", auth, adminOnly, saldo);
 router.patch(
   "/transaction/:id",
   auth,

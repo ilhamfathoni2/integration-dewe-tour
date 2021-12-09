@@ -12,17 +12,17 @@ import convertRupiah from "rupiah-format";
 function Dashboard() {
   let api = API();
 
-  const title = "Profit";
+  const title = "Dashboard";
   document.title = "Dewe Tour | " + title;
 
   const [cancel, setCancel] = useState([]);
-  const [waiting, setWaiting] = useState([]);
-  const [admin, setAdmin] = useState([]);
-  const [approve, setApprove] = useState([]);
-  const [tcancel, setTcancel] = useState([]);
-  const [twaiting, setTwaiting] = useState([]);
+  const [waiting, setwaiting] = useState([]);
 
-  const { data: profits } = useQuery("profits", async () => {
+  const [totalApprove, settotalApprove] = useState([]);
+  const [totalCancel, settotalCancel] = useState([]);
+  const [totalWaiting, settotalWaiting] = useState([]);
+
+  const { data: saldo } = useQuery("saldo", async () => {
     const config = {
       method: "GET",
       headers: {
@@ -30,14 +30,16 @@ function Dashboard() {
       },
     };
 
-    const response = await api.get("/profit", config);
+    const response = await api.get("/saldo", config);
     setCancel(response.cancel);
-    setWaiting(response.waiting);
-    setApprove(response.approve.count);
-    setTcancel(response.totalCancel.count);
-    setTwaiting(response.totalWaiting.count);
-    return response.totals;
+    setwaiting(response.waiting);
+    settotalApprove(response.totalApprove.count);
+    settotalCancel(response.totalCancel.count);
+    settotalWaiting(response.totalWaiting.count);
+    return response.incom;
   });
+
+  const [admin, setAdmin] = useState([]);
 
   const { data: users } = useQuery("users", async () => {
     const config = {
@@ -65,7 +67,7 @@ function Dashboard() {
             <b className="mb-4 mt-3 text-secondary">Income </b>
             <h5 className="mb-0 mt-2">
               <b className="text-success mb-0">
-                {convertRupiah.convert(profits)}
+                {convertRupiah.convert(saldo)}
               </b>
             </h5>
           </div>
@@ -91,22 +93,22 @@ function Dashboard() {
           <ProgressBar
             className="mb-3"
             variant="success"
-            now={approve}
-            label={`${approve} pcs`}
+            now={totalApprove}
+            label={`${totalApprove} pcs`}
           />
           <label className="text-secondary">Waiting Approve</label>
           <ProgressBar
             className="mb-3"
             variant="warning"
-            now={twaiting}
-            label={`${twaiting}`}
+            now={totalWaiting}
+            label={`${totalWaiting}`}
           />
           <label className="text-secondary">Cancel</label>
           <ProgressBar
             className="mb-3"
             variant="danger"
-            now={tcancel}
-            label={`${tcancel}`}
+            now={totalCancel}
+            label={`${totalCancel}`}
           />
         </div>
         <h5 className="text-secondary mb-3 mt-5">

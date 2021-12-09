@@ -22,9 +22,9 @@ function Personal() {
       },
     };
 
-    const response = await api.get("/user-data", config);
+    const response = await api.get("/profile", config);
 
-    return response.data;
+    return response.datas;
   });
 
   return (

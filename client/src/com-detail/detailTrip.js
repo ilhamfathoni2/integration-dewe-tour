@@ -71,6 +71,8 @@ function Descriptions({ item }) {
     }
   });
 
+  const isRole = localStorage.getItem("role");
+
   return (
     <>
       <Container>
@@ -173,11 +175,11 @@ function Descriptions({ item }) {
                     </span>
                   </h3>
                 );
-              } else if (state.user.role === "admin") {
+              } else if (isRole === "admin") {
                 return <Button hidden></Button>;
-              } else if (state.user.role === "") {
+              } else if (!isRole) {
                 return <Button hidden></Button>;
-              } else {
+              } else if (isRole === "user") {
                 return (
                   <Button variant="warning" onClick={() => handleBuy.mutate()}>
                     <b>BOOK NOW</b>

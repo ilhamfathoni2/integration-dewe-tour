@@ -8,8 +8,8 @@ import convertRupiah from "rupiah-format";
 
 import { useMutation } from "react-query";
 import { API } from "../config/api";
-import { useHistory } from "react-router";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 function ModalTransaction({ item }) {
   const [lgShow, setLgShow] = useState(false);
@@ -24,8 +24,6 @@ function ModalTransaction({ item }) {
         status: approve,
       };
 
-      console.log(data);
-
       const body = JSON.stringify(data);
 
       const config = {
@@ -38,8 +36,10 @@ function ModalTransaction({ item }) {
       };
 
       await api.patch("/update-incom/" + item.id, config);
+      setLgShow(false);
       history.go();
     } catch (error) {
+      setLgShow(false);
       console.log(error);
     }
   });
@@ -51,8 +51,6 @@ function ModalTransaction({ item }) {
         status: cancel,
       };
 
-      console.log(data);
-
       const body = JSON.stringify(data);
 
       const config = {
@@ -65,8 +63,10 @@ function ModalTransaction({ item }) {
       };
 
       await api.patch("/update-incom/" + item.id, config);
+      setLgShow(false);
       history.go();
     } catch (error) {
+      setLgShow(false);
       console.log(error);
     }
   });
